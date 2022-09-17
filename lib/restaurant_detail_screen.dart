@@ -2,7 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/menu_item_name.dart';
 
 class RestaurantDetailScreen extends StatelessWidget {
-  const RestaurantDetailScreen({Key? key}) : super(key: key);
+  final String restaurantId;
+  final String restaurantName;
+  final String restaurantCity;
+  final String restaurantDescription;
+  final String restaurantPictureId;
+  final double restaurantRating;
+  final List restaurantFoods;
+  final List restaurantDrinks;
+
+  const RestaurantDetailScreen(
+      {Key? key,
+      required this.restaurantName,
+      required this.restaurantCity,
+      required this.restaurantId,
+      required this.restaurantDescription,
+      required this.restaurantPictureId,
+      required this.restaurantRating,
+      required this.restaurantFoods,
+      required this.restaurantDrinks})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,34 +30,32 @@ class RestaurantDetailScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             /// Top Image
-            Image.asset(
-              "asset/img-test.jpg",
-            ),
+            // Image.asset(
+            //   restaurantPictureId,
+            // ),
+            Text(restaurantPictureId),
 
             /// Restaurant Name
-            Text("Restaurant Name"),
+            Text(restaurantName),
 
             /// Location
-            Text("City"),
+            Text(restaurantCity),
 
             /// Description
-            Text("Description Title"),
-            Text("Description"),
+            Text(restaurantDescription),
 
             /// Menu
-            Text("Menu Title"),
+            Text("Menu"),
 
-            /// Menu name
-            Wrap(
-              alignment: WrapAlignment.spaceEvenly,
-              children: <Widget>[
-                MenuItemName(),
-                MenuItemName(),
-                MenuItemName(),
-                MenuItemName(),
-                MenuItemName(),
-              ],
-            ),
+            /// Foods
+            Text("Food"),
+            for (int i = 0; i < restaurantFoods.length; i++)
+              Text(restaurantFoods[i]),
+
+            /// Drinks
+            Text("Drink"),
+            for (int i = 0; i < restaurantDrinks.length; i++)
+              Text(restaurantDrinks[i]),
           ],
         ),
       ),

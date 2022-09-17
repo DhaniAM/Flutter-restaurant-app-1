@@ -1,22 +1,22 @@
 // To parse this JSON data, do
 //
-//     final restaurantData = restaurantDataFromJson(jsonString);
+//     final restaurants = restaurantsFromJson(jsonString);
 
 import 'dart:convert';
 
-class RestaurantData {
-  RestaurantData({
+Restaurants restaurantsFromJson(String str) =>
+    Restaurants.fromJson(json.decode(str));
+
+String restaurantsToJson(Restaurants data) => json.encode(data.toJson());
+
+class Restaurants {
+  Restaurants({
     required this.restaurants,
   });
 
   List<Restaurant> restaurants;
 
-  factory RestaurantData.fromRawJson(String str) =>
-      RestaurantData.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory RestaurantData.fromJson(Map<String, dynamic> json) => RestaurantData(
+  factory Restaurants.fromJson(Map<String, dynamic> json) => Restaurants(
         restaurants: List<Restaurant>.from(
             json["restaurants"].map((x) => Restaurant.fromJson(x))),
       );
@@ -44,11 +44,6 @@ class Restaurant {
   String city;
   double rating;
   Menus menus;
-
-  factory Restaurant.fromRawJson(String str) =>
-      Restaurant.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
         id: json["id"],
@@ -80,10 +75,6 @@ class Menus {
   List<Drink> foods;
   List<Drink> drinks;
 
-  factory Menus.fromRawJson(String str) => Menus.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Menus.fromJson(Map<String, dynamic> json) => Menus(
         foods: List<Drink>.from(json["foods"].map((x) => Drink.fromJson(x))),
         drinks: List<Drink>.from(json["drinks"].map((x) => Drink.fromJson(x))),
@@ -101,10 +92,6 @@ class Drink {
   });
 
   String name;
-
-  factory Drink.fromRawJson(String str) => Drink.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Drink.fromJson(Map<String, dynamic> json) => Drink(
         name: json["name"],
