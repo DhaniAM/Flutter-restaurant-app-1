@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_1/menu_item_name.dart';
 import 'package:restaurant_app_1/restaurants.dart';
 
 class RestaurantScreen extends StatelessWidget {
@@ -25,37 +26,119 @@ class RestaurantScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Divider myDivider = const Divider(
+      color: Color.fromRGBO(255, 175, 175, 0.8),
+      thickness: 2,
+      height: 0,
+      indent: 25,
+      endIndent: 25,
+    );
     return Scaffold(
       body: SafeArea(
         child: ListView(
           children: <Widget>[
             /// Top Image
-            // Image.asset(
-            //   restaurantPictureId,
-            // ),
-            Text(restaurantPictureId),
+            Image.network(restaurantPictureId,
+                loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(child: CircularProgressIndicator());
+            }),
 
-            /// Restaurant Name
-            Text(restaurantName),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Restaurant Name
+                  Text(
+                    restaurantName,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
 
-            /// Location
-            Text(restaurantCity),
+                  /// Restaurant City
+                  Text(
+                    restaurantCity,
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+
+            myDivider,
 
             /// Description
-            Text(restaurantDescription),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                restaurantDescription,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
 
-            /// Menu
-            const Text("Menu"),
+            myDivider,
 
-            /// Foods
-            const Text("Food"),
-            for (int i = 0; i < restaurantFoods.length; i++)
-              Text(restaurantFoods[i].name),
+            /// Menu Title
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text(
+                  "Menu",
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
 
-            /// Drinks
-            const Text("Drink"),
-            for (int i = 0; i < restaurantDrinks.length; i++)
-              Text(restaurantDrinks[i].name),
+            /// Foods Title
+            const Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: Text(
+                "Food",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            /// Foods Item
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Wrap(
+                children: <Widget>[
+                  for (int i = 0; i < restaurantFoods.length; i++)
+                    MenuItemName(itemName: restaurantFoods[i].name),
+                ],
+              ),
+            ),
+
+            /// Drinks Title
+            const Padding(
+              padding: EdgeInsets.only(left: 16),
+              child: Text(
+                "Drink",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            /// Drinks Item
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Wrap(
+                children: <Widget>[
+                  for (int i = 0; i < restaurantDrinks.length; i++)
+                    MenuItemName(itemName: restaurantDrinks[i].name),
+                ],
+              ),
+            ),
           ],
         ),
       ),

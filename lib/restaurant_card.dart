@@ -47,12 +47,21 @@ class RestaurantCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: const Color.fromRGBO(255, 139, 139, 1),
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Color.fromARGB(255, 189, 189, 189),
+                blurRadius: 0.2,
+                offset: Offset(2, 2),
+              )
+            ],
           ),
           child: ListTile(
-            leading: const CircleAvatar(
-              backgroundColor: Colors.white,
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(restaurantPictureId),
             ),
-            title: Text(restaurantName),
+            title: Text(
+              restaurantName,
+            ),
             subtitle: Text(restaurantCity),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
