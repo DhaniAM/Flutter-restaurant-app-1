@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:restaurant_app_1/restaurant_detail_screen.dart';
 
 class RestaurantCard extends StatelessWidget {
   const RestaurantCard({Key? key}) : super(key: key);
@@ -8,27 +7,34 @@ class RestaurantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Color.fromRGBO(255, 139, 139, 1),
-        ),
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.white,
+      padding: const EdgeInsets.only(top: 8.0, left: 16, right: 16, bottom: 8),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: ((context) {
+            return RestaurantDetailScreen();
+          })));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Color.fromRGBO(255, 139, 139, 1),
           ),
-          title: Text("Restaurant Name"),
-          subtitle: Text("Location"),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.star_rounded,
-                color: Colors.yellow,
-              ),
-              Text("4.5"),
-            ],
+          child: ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: Colors.white,
+            ),
+            title: Text("Restaurant Name"),
+            subtitle: Text("Location"),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const <Widget>[
+                Icon(
+                  Icons.star_rounded,
+                  color: Colors.yellow,
+                ),
+                Text("4.5"),
+              ],
+            ),
           ),
         ),
       ),
