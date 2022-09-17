@@ -12,8 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  /// Parse JSON to Object
   Future<Restaurants> getRestaurants() async {
+    /// Get data from JSON file
     final jsonData = await rootBundle.loadString("asset/local_restaurant.json");
+
+    /// Parse JSON to Restaurants
     Restaurants restaurants = Restaurants.fromJson(jsonDecode(jsonData));
     return restaurants;
   }
@@ -24,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FutureBuilder(
         future: getRestaurants(),
         builder: (context, data) {
+          /// Error message
           if (data.hasError) {
             return const Center(
               child: Text("Error"),
@@ -48,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: restaurants.restaurants.length,
             );
           } else {
+            /// Loading Screen
             return const Center(
               child: CircularProgressIndicator(),
             );

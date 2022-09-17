@@ -26,6 +26,7 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Each Restaurant List
     return Padding(
       padding:
           const EdgeInsets.only(top: 10.0, left: 16, right: 16, bottom: 20),
@@ -44,6 +45,8 @@ class RestaurantCard extends StatelessWidget {
             );
           })));
         },
+
+        /// Card Decoration
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white, width: 1),
@@ -58,6 +61,7 @@ class RestaurantCard extends StatelessWidget {
             ],
           ),
           child: ListTile(
+            /// Restaurant Img
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Container(
@@ -70,14 +74,20 @@ class RestaurantCard extends StatelessWidget {
                 ),
               ),
             ),
+
+            /// Restaurant Name
             title: Text(
               restaurantName,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
+
+            /// Restaurant Location
             subtitle: Text(
               restaurantCity,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
+
+            /// Restaurant Rating
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -87,7 +97,7 @@ class RestaurantCard extends StatelessWidget {
                 ),
                 Text(
                   restaurantRating.toString(),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),
