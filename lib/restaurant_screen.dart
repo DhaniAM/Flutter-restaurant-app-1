@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_1/menu_item_name.dart';
+import 'package:restaurant_app_1/restaurants.dart';
 
-class RestaurantDetailScreen extends StatelessWidget {
+class RestaurantScreen extends StatelessWidget {
   final String restaurantId;
   final String restaurantName;
   final String restaurantCity;
   final String restaurantDescription;
   final String restaurantPictureId;
   final double restaurantRating;
-  final List restaurantFoods;
-  final List restaurantDrinks;
+  final List<Food> restaurantFoods;
+  final List<Drink> restaurantDrinks;
 
-  const RestaurantDetailScreen(
+  const RestaurantScreen(
       {Key? key,
       required this.restaurantName,
       required this.restaurantCity,
@@ -45,17 +45,17 @@ class RestaurantDetailScreen extends StatelessWidget {
             Text(restaurantDescription),
 
             /// Menu
-            Text("Menu"),
+            const Text("Menu"),
 
             /// Foods
-            Text("Food"),
+            const Text("Food"),
             for (int i = 0; i < restaurantFoods.length; i++)
-              Text(restaurantFoods[i]),
+              Text(restaurantFoods[i].name),
 
             /// Drinks
-            Text("Drink"),
+            const Text("Drink"),
             for (int i = 0; i < restaurantDrinks.length; i++)
-              Text(restaurantDrinks[i]),
+              Text(restaurantDrinks[i].name),
           ],
         ),
       ),

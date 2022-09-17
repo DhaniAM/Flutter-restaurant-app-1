@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_1/restaurant_detail_screen.dart';
+import 'package:restaurant_app_1/restaurant_screen.dart';
+import 'package:restaurant_app_1/restaurants.dart';
 
 class RestaurantCard extends StatelessWidget {
   final String restaurantId;
@@ -8,8 +9,8 @@ class RestaurantCard extends StatelessWidget {
   final String restaurantDescription;
   final String restaurantPictureId;
   final double restaurantRating;
-  final List restaurantFoods;
-  final List restaurantDrinks;
+  final List<Food> restaurantFoods;
+  final List<Drink> restaurantDrinks;
 
   const RestaurantCard(
       {Key? key,
@@ -30,7 +31,7 @@ class RestaurantCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            return RestaurantDetailScreen(
+            return RestaurantScreen(
               restaurantName: restaurantName,
               restaurantCity: restaurantCity,
               restaurantDescription: restaurantDescription,
@@ -45,7 +46,7 @@ class RestaurantCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color.fromRGBO(255, 139, 139, 1),
+            color: const Color.fromRGBO(255, 139, 139, 1),
           ),
           child: ListTile(
             leading: const CircleAvatar(
@@ -56,7 +57,7 @@ class RestaurantCard extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(
+                const Icon(
                   Icons.star_rounded,
                   color: Colors.yellow,
                 ),

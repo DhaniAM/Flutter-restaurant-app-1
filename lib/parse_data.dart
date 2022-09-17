@@ -14,7 +14,7 @@ class ParseData {
     final restaurantData = jsonDecode(jsonString)["restaurants"];
 
     /// add the JSON data to restaurants
-    List<String> restaurants = List.from(restaurantData);
+    List<Future> restaurants = List.from(restaurantData);
     return restaurants;
   }
 }
