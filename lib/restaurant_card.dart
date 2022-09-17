@@ -27,7 +27,8 @@ class RestaurantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 16, right: 16, bottom: 8),
+      padding:
+          const EdgeInsets.only(top: 10.0, left: 16, right: 16, bottom: 20),
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: ((context) {
@@ -45,24 +46,38 @@ class RestaurantCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.circular(8),
             color: const Color.fromRGBO(255, 139, 139, 1),
             boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Color.fromARGB(255, 189, 189, 189),
-                blurRadius: 0.2,
-                offset: Offset(2, 2),
+                blurRadius: 3,
+                offset: Offset(1, 3),
               )
             ],
           ),
           child: ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(restaurantPictureId),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(restaurantPictureId),
+                  ),
+                ),
+              ),
             ),
             title: Text(
               restaurantName,
+              style: TextStyle(color: Colors.white),
             ),
-            subtitle: Text(restaurantCity),
+            subtitle: Text(
+              restaurantCity,
+              style: TextStyle(color: Colors.white),
+            ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -70,7 +85,10 @@ class RestaurantCard extends StatelessWidget {
                   Icons.star_rounded,
                   color: Colors.yellow,
                 ),
-                Text(restaurantRating.toString()),
+                Text(
+                  restaurantRating.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ),
