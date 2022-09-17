@@ -7,12 +7,11 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          RestaurantCard(),
-          RestaurantCard(),
-          RestaurantCard(),
-        ],
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return RestaurantCard();
+        },
+        itemCount: 10,
       ),
     );
   }

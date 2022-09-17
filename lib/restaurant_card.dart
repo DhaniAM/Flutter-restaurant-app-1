@@ -7,13 +7,30 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Row(
-        children: [
-          Text("Title"),
-          Text("Name"),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Color.fromRGBO(255, 139, 139, 1),
+        ),
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white,
+          ),
+          title: Text("Restaurant Name"),
+          subtitle: Text("Location"),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.star_rounded,
+                color: Colors.yellow,
+              ),
+              Text("4.5"),
+            ],
+          ),
+        ),
       ),
     );
   }
