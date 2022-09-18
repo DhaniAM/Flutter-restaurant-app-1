@@ -46,22 +46,42 @@ class RestaurantScreen extends StatelessWidget {
 
             Container(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  /// Restaurant Name
-                  Text(
-                    restaurantName,
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        /// Restaurant Name
+                        Text(
+                          restaurantName,
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        /// Restaurant City
+                        Text(
+                          restaurantCity,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
 
-                  /// Restaurant City
-                  Text(
-                    restaurantCity,
-                    style: const TextStyle(fontSize: 18),
+                  /// Restaurant rating
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.star_rounded,
+                        color: Colors.yellow,
+                      ),
+                      Text(
+                        restaurantRating.toString(),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -74,7 +94,7 @@ class RestaurantScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 restaurantDescription,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 15),
               ),
             ),
 
