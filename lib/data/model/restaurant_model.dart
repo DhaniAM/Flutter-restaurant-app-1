@@ -18,6 +18,7 @@ class RestaurantDetail {
       );
 }
 
+/// Has complete detail for restaurant, use in [RestaurantScreen]
 class Restaurant {
   Restaurant({
     required this.id,

@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<RestaurantsList> restaurantsList;
   late Future<RestaurantDetail> restaurantDetail;
 
-  /// This function called everytime the widget is build
+  /// This function called everytime the state change / widget is build
   @override
   void initState() {
     super.initState();
@@ -25,23 +25,35 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// App Bar
       appBar: AppBar(
         title: const Text("Local Restaurants"),
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
       ),
+
+      /// Each Restaurant List
       body: FutureBuilder(
         future: restaurantsList,
         builder: (context, data) {
-          /// Error message
+          /// Show error screen if data is error
           if (data.hasError) {
-            return const Center(
-              child: Text("Error"),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Icon(Icons.warning_rounded, size: 50),
+                  Text("Error loading data from internet."),
+                  Text("Please check your internet connection."),
+                  Text("-_-"),
+                ],
+              ),
             );
           } else if (data.hasData) {
+            /// Change the Future type to Object type
             RestaurantsList restaurantsList = data.data as RestaurantsList;
             return ListView.builder(
               itemBuilder: ((context, index) {
-                /// get each [RestaurantDetail] to pass to [RestaurantCard]
+                /// Pass the [RestaurantList] object to [RestaurantCard]
                 return RestaurantCard(
                     restaurantsList: restaurantsList, index: index);
               }),
@@ -50,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           } else {
             /// Loading Screen
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                  color: Color.fromRGBO(255, 106, 106, 1)),
             );
           }
         },

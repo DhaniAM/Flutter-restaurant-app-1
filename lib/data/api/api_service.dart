@@ -12,19 +12,19 @@ class ApiService {
   /// for adding review
   static const String _reviewQuery = "/review";
 
-  /// for [HomeScreen]
+  /// for [HomeScreen] getting List of Restaurants
   Future<RestaurantsList> getRestaurantsList() async {
     final response = await http.get(Uri.parse(_baseUrl + _listQuery));
     if (response.statusCode == 200) {
       /// jsonDecode => change from String format to JSON format
-      /// fromJSON => change from JSOn format to RestaurantModel object
+      /// fromJSON => change from JSON format to RestaurantModel object
       return RestaurantsList.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception("Failed to load restaurant list from API -_-");
+      throw Exception("Failed to load restaurant list -_-");
     }
   }
 
-  /// for [HomeScreen]
+  /// for [HomeScreen] getting Overview of Restaurant Detail
   Future<Restaurants> getRestaurantsDetail(String id) async {
     final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
     if (response.statusCode == 200) {
@@ -34,7 +34,7 @@ class ApiService {
     }
   }
 
-  /// for [HomeScreen]
+  /// for [HomeScreen] getting Search Result
   Future<Restaurants> getSearchResults(String searchText) async {
     final response =
         await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
@@ -45,21 +45,11 @@ class ApiService {
     }
   }
 
-  /// for [RestaurantScreen]
+  /// for [RestaurantScreen] getting Complete Restaurant Detail
   Future<RestaurantDetail> getRestaurantDetail(String id) async {
     final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
     if (response.statusCode == 200) {
       return RestaurantDetail.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception("Failed to load restaurant detail -_-");
-    }
-  }
-
-  /// for [RestaurantScreen]
-  Future<Restaurant> getRestaurant(String id) async {
-    final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
-    if (response.statusCode == 200) {
-      return Restaurant.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed to load restaurant detail -_-");
     }

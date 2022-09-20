@@ -27,6 +27,7 @@ class RestaurantsList {
       );
 }
 
+/// Overview of Restaurants detail, not so complete compared to [Restaurant] class
 class Restaurants {
   Restaurants({
     required this.id,

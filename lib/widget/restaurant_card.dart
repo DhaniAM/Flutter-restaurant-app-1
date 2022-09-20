@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
@@ -13,17 +12,21 @@ class RestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String smallImg = "https://restaurant-api.dicoding.dev/images/small/";
+    const String smallImg = "https://restaurant-api.dicoding.dev/images/small/";
+
+    /// to shortened the link to access the object
+    final Restaurants restaurant = restaurantsList.restaurants[index];
 
     /// Each Restaurant List
     return Padding(
       padding:
           const EdgeInsets.only(top: 10.0, left: 16, right: 16, bottom: 20),
+
+      /// Routing
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            return RestaurantScreen(
-                restaurantId: restaurantsList.restaurants[index].id);
+            return RestaurantScreen(restaurantId: restaurant.id);
           })));
         },
 
@@ -42,35 +45,46 @@ class RestaurantCard extends StatelessWidget {
             ],
           ),
           child: ListTile(
+            //
             /// Restaurant Image
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Container(
+              child: SizedBox(
                 height: 80,
                 width: 80,
                 child: Hero(
-                  tag: restaurantsList.restaurants[index].pictureId,
+                  tag: restaurant.pictureId,
                   child: Image.network(
-                      smallImg + restaurantsList.restaurants[index].pictureId),
+                    (smallImg + restaurant.pictureId),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      /// When it's done loading
+                      if (loadingProgress == null) return child;
+
+                      /// While still loading
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Column(
+                        children: const <Widget>[
+                          Icon(Icons.warning_rounded),
+                          Text("Img Error")
+                        ],
+                      );
+                    },
+                  ),
                 ),
-                // decoration: BoxDecoration(
-                //   image: DecorationImage(
-                //     image: NetworkImage(smallImg +
-                //         restaurantsList.restaurants[index].pictureId),
-                //   ),
-                // ),
               ),
             ),
 
             /// Restaurant Name
             title: Text(
-              restaurantsList.restaurants[index].name,
+              restaurant.name,
               style: const TextStyle(color: Colors.white),
             ),
 
             /// Restaurant Location
             subtitle: Text(
-              restaurantsList.restaurants[index].city,
+              restaurant.city,
               style: const TextStyle(color: Colors.white),
             ),
 
@@ -83,7 +97,7 @@ class RestaurantCard extends StatelessWidget {
                   color: Colors.yellow,
                 ),
                 Text(
-                  restaurantsList.restaurants[index].rating.toString(),
+                  restaurant.rating.toString(),
                   style: const TextStyle(color: Colors.white),
                 ),
               ],
