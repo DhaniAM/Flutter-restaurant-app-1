@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_1/menu_item_name.dart';
-import 'package:restaurant_app_1/restaurants.dart';
+import 'package:restaurant_app_1/widget/menu_item_name.dart';
+import 'package:restaurant_app_1/provider/restaurants.dart';
 
 class RestaurantScreen extends StatelessWidget {
   final String restaurantId;
