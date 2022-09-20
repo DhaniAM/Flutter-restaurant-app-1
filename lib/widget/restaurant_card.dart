@@ -48,12 +48,17 @@ class RestaurantCard extends StatelessWidget {
               child: Container(
                 height: 80,
                 width: 80,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(smallImg +
-                        restaurantsList.restaurants[index].pictureId),
-                  ),
+                child: Hero(
+                  tag: restaurantsList.restaurants[index].pictureId,
+                  child: Image.network(
+                      smallImg + restaurantsList.restaurants[index].pictureId),
                 ),
+                // decoration: BoxDecoration(
+                //   image: DecorationImage(
+                //     image: NetworkImage(smallImg +
+                //         restaurantsList.restaurants[index].pictureId),
+                //   ),
+                // ),
               ),
             ),
 
