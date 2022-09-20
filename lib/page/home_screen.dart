@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
-import 'package:restaurant_app_1/provider/restaurants.dart';
+import 'package:restaurant_app_1/data/model/restaurants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Local Restaurants"),
-        backgroundColor: Color.fromRGBO(255, 106, 106, 1),
+        title: const Text("Local Restaurants"),
+        backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
       ),
       body: FutureBuilder(
         future: getRestaurants(),

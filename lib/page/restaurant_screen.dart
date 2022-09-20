@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
-import 'package:restaurant_app_1/provider/restaurants.dart';
+import 'package:restaurant_app_1/data/model/restaurants.dart';
 
 class RestaurantScreen extends StatelessWidget {
   final String restaurantId;
@@ -36,7 +36,7 @@ class RestaurantScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(restaurantName),
-        backgroundColor: Color.fromRGBO(255, 106, 106, 1),
+        backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
       ),
       body: SafeArea(
         child: ListView(
