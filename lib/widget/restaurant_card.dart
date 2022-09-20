@@ -4,12 +4,12 @@ import 'package:restaurant_app_1/page/restaurant_screen.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final RestaurantDetail restaurantDetail;
+  final RestaurantsList restaurantsList;
+  final int index;
 
-  const RestaurantCard({
-    Key? key,
-    required this.restaurantDetail,
-  }) : super(key: key);
+  const RestaurantCard(
+      {Key? key, required this.restaurantsList, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,8 @@ class RestaurantCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            return RestaurantScreen(restaurant: restaurantDetail);
+            return RestaurantScreen(
+                restaurantId: restaurantsList.restaurants[index].id);
           })));
         },
 
@@ -41,7 +42,7 @@ class RestaurantCard extends StatelessWidget {
             ],
           ),
           child: ListTile(
-            /// Restaurant Img
+            /// Restaurant Image
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Container(
@@ -49,8 +50,8 @@ class RestaurantCard extends StatelessWidget {
                 width: 80,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        smallImg + restaurantDetail.restaurant.pictureId),
+                    image: NetworkImage(smallImg +
+                        restaurantsList.restaurants[index].pictureId),
                   ),
                 ),
               ),
@@ -58,13 +59,13 @@ class RestaurantCard extends StatelessWidget {
 
             /// Restaurant Name
             title: Text(
-              restaurantDetail.restaurant.name,
+              restaurantsList.restaurants[index].name,
               style: const TextStyle(color: Colors.white),
             ),
 
             /// Restaurant Location
             subtitle: Text(
-              restaurantDetail.restaurant.city,
+              restaurantsList.restaurants[index].city,
               style: const TextStyle(color: Colors.white),
             ),
 
@@ -77,7 +78,7 @@ class RestaurantCard extends StatelessWidget {
                   color: Colors.yellow,
                 ),
                 Text(
-                  restaurantDetail.restaurant.rating.toString(),
+                  restaurantsList.restaurants[index].rating.toString(),
                   style: const TextStyle(color: Colors.white),
                 ),
               ],

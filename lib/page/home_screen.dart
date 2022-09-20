@@ -42,11 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
             return ListView.builder(
               itemBuilder: ((context, index) {
                 /// get each [RestaurantDetail] to pass to [RestaurantCard]
-                restaurantDetail = ApiService()
-                    .getRestaurantDetail(restaurantsList.restaurants[index].id);
-                RestaurantDetail resDetail =
-                    restaurantDetail as RestaurantDetail;
-                return RestaurantCard(restaurantDetail: resDetail);
+                return RestaurantCard(
+                    restaurantsList: restaurantsList, index: index);
               }),
               itemCount: restaurantsList.count,
             );
