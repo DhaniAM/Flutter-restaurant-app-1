@@ -25,6 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Local Restaurants"),
+        backgroundColor: Color.fromRGBO(255, 106, 106, 1),
+      ),
       body: FutureBuilder(
         future: getRestaurants(),
         builder: (context, data) {

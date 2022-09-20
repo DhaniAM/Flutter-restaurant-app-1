@@ -34,6 +34,10 @@ class RestaurantScreen extends StatelessWidget {
       endIndent: 25,
     );
     return Scaffold(
+      appBar: AppBar(
+        title: Text(restaurantName),
+        backgroundColor: Color.fromRGBO(255, 106, 106, 1),
+      ),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
