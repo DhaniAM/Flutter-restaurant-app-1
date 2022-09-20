@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
-import 'package:restaurant_app_1/data/model/restaurants.dart';
+import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
