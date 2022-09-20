@@ -1,7 +1,6 @@
-import 'dart:convert';
-
-class RestaurantsDetail {
-  RestaurantsDetail({
+/// class for restaurant detail in [RestaurantScreen]
+class RestaurantDetail {
+  RestaurantDetail({
     required this.error,
     required this.message,
     required this.restaurant,
@@ -11,8 +10,8 @@ class RestaurantsDetail {
   String message;
   Restaurant restaurant;
 
-  factory RestaurantsDetail.fromJson(Map<String, dynamic> json) =>
-      RestaurantsDetail(
+  factory RestaurantDetail.fromJson(Map<String, dynamic> json) =>
+      RestaurantDetail(
         error: json["error"],
         message: json["message"],
         restaurant: Restaurant.fromJson(json["restaurant"]),

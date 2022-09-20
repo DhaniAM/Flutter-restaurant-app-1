@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_1/data/api/api_service.dart';
+import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
 class RestaurantScreen extends StatelessWidget {
-  final String restaurantId;
-  final String restaurantName;
-  final String restaurantCity;
-  final String restaurantDescription;
-  final String restaurantPictureId;
-  final double restaurantRating;
-  final List<Food> restaurantFoods;
-  final List<Drink> restaurantDrinks;
+  final RestaurantDetail restaurant;
 
-  const RestaurantScreen(
-      {Key? key,
-      required this.restaurantName,
-      required this.restaurantCity,
-      required this.restaurantId,
-      required this.restaurantDescription,
-      required this.restaurantPictureId,
-      required this.restaurantRating,
-      required this.restaurantFoods,
-      required this.restaurantDrinks})
+  const RestaurantScreen({Key? key, required this.restaurant})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int resFoodLen = restaurant.restaurant.menus.foods.length;
+    int resDrinkLen = restaurant.restaurant.menus.drinks.length;
+
     Divider myDivider = const Divider(
       color: Color.fromRGBO(255, 175, 175, 0.8),
       thickness: 2,
@@ -35,14 +24,14 @@ class RestaurantScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurantName),
+        title: Text(restaurant.restaurant.name),
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
       ),
       body: SafeArea(
         child: ListView(
           children: <Widget>[
             /// Top Image
-            Image.network(restaurantPictureId,
+            Image.network(restaurant.restaurant.pictureId,
                 loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
               return const Center(child: CircularProgressIndicator());
@@ -59,7 +48,7 @@ class RestaurantScreen extends StatelessWidget {
                       children: [
                         /// Restaurant Name
                         Text(
-                          restaurantName,
+                          restaurant.restaurant.name,
                           style: const TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -68,7 +57,7 @@ class RestaurantScreen extends StatelessWidget {
 
                         /// Restaurant City
                         Text(
-                          restaurantCity,
+                          restaurant.restaurant.city,
                           style: const TextStyle(fontSize: 18),
                         ),
                       ],
@@ -83,7 +72,7 @@ class RestaurantScreen extends StatelessWidget {
                         color: Colors.yellow,
                       ),
                       Text(
-                        restaurantRating.toString(),
+                        restaurant.restaurant.rating.toString(),
                       ),
                     ],
                   ),
@@ -97,7 +86,7 @@ class RestaurantScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                restaurantDescription,
+                restaurant.restaurant.description,
                 style: const TextStyle(fontSize: 15),
               ),
             ),
@@ -135,8 +124,9 @@ class RestaurantScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Wrap(
                 children: <Widget>[
-                  for (int i = 0; i < restaurantFoods.length; i++)
-                    MenuItemName(itemName: restaurantFoods[i].name),
+                  for (int i = 0; i < resFoodLen; i++)
+                    MenuItemName(
+                        itemName: restaurant.restaurant.menus.foods[i].name),
                 ],
               ),
             ),
@@ -158,8 +148,9 @@ class RestaurantScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Wrap(
                 children: <Widget>[
-                  for (int i = 0; i < restaurantDrinks.length; i++)
-                    MenuItemName(itemName: restaurantDrinks[i].name),
+                  for (int i = 0; i < resDrinkLen; i++)
+                    MenuItemName(
+                        itemName: restaurant.restaurant.menus.drinks[i].name),
                 ],
               ),
             ),

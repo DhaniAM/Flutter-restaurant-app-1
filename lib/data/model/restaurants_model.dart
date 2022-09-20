@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+/// class for restaurant list in [HomeScreen]
 RestaurantsList restaurantsDataFromJson(String str) =>
     RestaurantsList.fromJson(json.decode(str));
 

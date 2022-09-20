@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:restaurant_app_1/data/api/api_service.dart';
+import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
@@ -12,14 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// Parse JSON to Object
-  Future<Restaurants> getRestaurants() async {
-    /// Get data from JSON file
-    final jsonData = await rootBundle.loadString("asset/local_restaurant.json");
+  late Future<RestaurantsList> restaurantsList;
+  late Future<RestaurantDetail> restaurantDetail;
 
-    /// Parse JSON to Restaurants
-    Restaurants restaurants = Restaurants.fromJson(jsonDecode(jsonData));
-    return restaurants;
+  /// This function called everytime the widget is build
+  @override
+  void initState() {
+    super.initState();
+    restaurantsList = ApiService().getRestaurantsList();
   }
 
   @override
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
       ),
       body: FutureBuilder(
-        future: getRestaurants(),
+        future: restaurantsList,
         builder: (context, data) {
           /// Error message
           if (data.hasError) {
@@ -38,23 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text("Error"),
             );
           } else if (data.hasData) {
-            Restaurants restaurants = data.data as Restaurants;
+            RestaurantsList restaurantsList = data.data as RestaurantsList;
             return ListView.builder(
               itemBuilder: ((context, index) {
-                return RestaurantCard(
-                    restaurantName: restaurants.restaurants[index].name,
-                    restaurantCity: restaurants.restaurants[index].city,
-                    restaurantId: restaurants.restaurants[index].id,
-                    restaurantDescription:
-                        restaurants.restaurants[index].description,
-                    restaurantPictureId:
-                        restaurants.restaurants[index].pictureId,
-                    restaurantRating: restaurants.restaurants[index].rating,
-                    restaurantFoods: restaurants.restaurants[index].menus.foods,
-                    restaurantDrinks:
-                        restaurants.restaurants[index].menus.drinks);
+                /// get each [RestaurantDetail] to pass to [RestaurantCard]
+                restaurantDetail = ApiService()
+                    .getRestaurantDetail(restaurantsList.restaurants[index].id);
+                RestaurantDetail resDetail =
+                    restaurantDetail as RestaurantDetail;
+                return RestaurantCard(restaurantDetail: resDetail);
               }),
-              itemCount: restaurants.restaurants.length,
+              itemCount: restaurantsList.count,
             );
           } else {
             /// Loading Screen
