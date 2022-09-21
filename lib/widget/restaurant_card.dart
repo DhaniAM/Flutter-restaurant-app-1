@@ -19,8 +19,7 @@ class RestaurantCard extends StatelessWidget {
 
     /// Each Restaurant List
     return Padding(
-      padding:
-          const EdgeInsets.only(top: 10.0, left: 16, right: 16, bottom: 20),
+      padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16, bottom: 4),
 
       /// Routing
       child: GestureDetector(

@@ -178,9 +178,11 @@ class RestaurantScreen extends StatelessWidget {
                         ),
 
                         /// Foods Item
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
+                        SizedBox(
+                          width: double.infinity,
                           child: Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
                             children: <Widget>[
                               for (int i = 0; i < resFoodsLen; i++)
                                 MenuItemName(
@@ -205,13 +207,17 @@ class RestaurantScreen extends StatelessWidget {
                         ),
 
                         /// Drinks Item
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          children: <Widget>[
-                            for (int i = 0; i < resDrinksLen; i++)
-                              MenuItemName(
-                                  itemName: restaurant.menus.drinks[i].name),
-                          ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: <Widget>[
+                              for (int i = 0; i < resDrinksLen; i++)
+                                MenuItemName(
+                                    itemName: restaurant.menus.drinks[i].name),
+                            ],
+                          ),
                         ),
 
                         myDivider,

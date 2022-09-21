@@ -6,15 +6,12 @@ class MenuItemName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Chip(
-        label: Text(itemName),
-        labelPadding: const EdgeInsets.all(4),
-        backgroundColor: const Color.fromRGBO(255, 218, 218, 1),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+    return Chip(
+      label: Text(itemName),
+      labelPadding: const EdgeInsets.all(4),
+      backgroundColor: const Color.fromRGBO(255, 218, 218, 1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
