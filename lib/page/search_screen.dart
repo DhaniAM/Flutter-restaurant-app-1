@@ -9,9 +9,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  /// to Notify listener everytime text updated
+  /// to Notify listener everytime text updated and to use the Input value
   final TextEditingController _controller = TextEditingController();
-
   bool searchState = false;
 
   @override
@@ -25,6 +24,12 @@ class _SearchScreenState extends State<SearchScreen> {
           controller: _controller,
           style: const TextStyle(color: Colors.white),
           decoration: const InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 2),
+            ),
             hintText: "Search restaurant, tag, menu...",
             hintStyle: TextStyle(color: Colors.white),
           ),
