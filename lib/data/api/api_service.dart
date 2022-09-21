@@ -9,9 +9,6 @@ class ApiService {
   static const String _listQuery = "/list";
   static const String _searchQuery = "/search?q=";
 
-  /// for adding review
-  static const String _reviewQuery = "/review";
-
   /// for [HomeScreen] getting List of Restaurants
   Future<RestaurantsList> getRestaurantsList() async {
     final response = await http.get(Uri.parse(_baseUrl + _listQuery));

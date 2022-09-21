@@ -27,13 +27,14 @@ class RestaurantListResult extends StatelessWidget {
         } else if (data.hasData) {
           /// Change the Future type to Object type
           RestaurantsList restaurantsList = data.data as RestaurantsList;
+          int resLen = restaurantsList.restaurants.length;
           return ListView.builder(
             itemBuilder: ((context, index) {
               /// Pass the [RestaurantList] object to [RestaurantCard]
               return RestaurantCard(
                   restaurantsList: restaurantsList, index: index);
             }),
-            itemCount: restaurantsList.founded,
+            itemCount: resLen,
           );
         } else {
           /// Loading Screen
