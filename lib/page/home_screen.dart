@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
+import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
@@ -29,11 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Local Restaurants"),
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
+
+        /// Search Icon
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, SearchScreen.routeName);
+              },
               child: const Icon(
                 Icons.search_rounded,
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
-import 'package:restaurant_app_1/widget/restaurant_card.dart';
+import 'package:restaurant_app_1/page/search_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => const HomeScreen(),
-        "/restaurantScreen": (context) => const RestaurantScreen(),
+        RestaurantScreen.routeName: (context) => const RestaurantScreen(),
+        SearchScreen.routeName: (context) => const SearchScreen(),
       },
     );
   }
