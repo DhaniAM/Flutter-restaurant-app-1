@@ -62,7 +62,9 @@ class RestaurantCard extends StatelessWidget {
                       if (loadingProgress == null) return child;
 
                       /// While still loading
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(
+                          child: CircularProgressIndicator(
+                              color: Color.fromRGBO(255, 106, 106, 1)));
                     },
                     errorBuilder: (context, error, stackTrace) {
                       return Column(

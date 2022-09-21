@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
+import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,64 +27,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// App Bar
-      appBar: AppBar(
-        title: const Text("Local Restaurants"),
-        backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
 
-        /// Search Icon
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, SearchScreen.routeName);
-              },
-              child: const Icon(
-                Icons.search_rounded,
+        /// App Bar
+        appBar: AppBar(
+          title: const Text("Local Restaurants"),
+          backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
+
+          /// Search Icon
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, SearchScreen.routeName);
+                },
+                child: const Icon(
+                  Icons.search_rounded,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
 
-      /// Each Restaurant List
-      body: FutureBuilder(
-        future: restaurantsList,
-        builder: (context, data) {
-          /// Show error screen if data is error
-          if (data.hasError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Icon(Icons.warning_rounded, size: 50),
-                  Text("Error loading data from internet."),
-                  Text("Please check your internet connection."),
-                  Text("-_-"),
-                ],
-              ),
-            );
-          } else if (data.hasData) {
-            /// Change the Future type to Object type
-            RestaurantsList restaurantsList = data.data as RestaurantsList;
-            return ListView.builder(
-              itemBuilder: ((context, index) {
-                /// Pass the [RestaurantList] object to [RestaurantCard]
-                return RestaurantCard(
-                    restaurantsList: restaurantsList, index: index);
-              }),
-              itemCount: restaurantsList.count,
-            );
-          } else {
-            /// Loading Screen
-            return const Center(
-              child: CircularProgressIndicator(
-                  color: Color.fromRGBO(255, 106, 106, 1)),
-            );
-          }
-        },
-      ),
-    );
+        /// Each Restaurant List
+        body: RestaurantListResult(
+          restaurantsList: restaurantsList,
+        ));
   }
 }

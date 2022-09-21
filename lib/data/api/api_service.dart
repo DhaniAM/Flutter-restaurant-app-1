@@ -34,7 +34,7 @@ class ApiService {
     }
   }
 
-  /// for [HomeScreen] getting Search Result
+  /// for [HomeScreen] getting Search Result for [SearchScreen]
   Future<Restaurants> getSearchResults(String searchText) async {
     final response =
         await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));

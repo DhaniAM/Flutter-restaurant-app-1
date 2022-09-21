@@ -49,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: <Widget>[
           /// if not in [searchState], hide search button or if input is empty
           (searchState == false || _controller.text.isEmpty)
-              ? SizedBox()
+              ? const SizedBox()
               : IconButton(
                   icon: const Icon(Icons.search_rounded),
                   onPressed: () {
