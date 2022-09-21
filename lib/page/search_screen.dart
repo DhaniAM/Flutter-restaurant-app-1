@@ -9,30 +9,57 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  /// to Notify listener everytime text updated
+  final TextEditingController _controller = TextEditingController();
+
+  bool searchState = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
-        title: TextFormField(
-          decoration: InputDecoration(
-            suffix: GestureDetector(
-              child: const Icon(Icons.search_rounded),
-              onTap: () {},
-            ),
-            hintText: "Search restaurant name, tag, menu...",
+
+        /// Input Text
+        title: TextField(
+          controller: _controller,
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
+            hintText: "Search restaurant, tag, menu...",
             hintStyle: TextStyle(color: Colors.white),
           ),
-          style: const TextStyle(color: Colors.white),
+          onChanged: (value) {
+            setState(() {
+              searchState = true;
+            });
+          },
+          onSubmitted: (value) {
+            setState(() {
+              searchState = false;
+            });
+          },
         ),
+
+        /// Search Button
+        actions: <Widget>[
+          /// if not in [searchState], hide search button or if input is empty
+          (searchState == false || _controller.text.isEmpty)
+              ? SizedBox()
+              : IconButton(
+                  icon: const Icon(Icons.search_rounded),
+                  onPressed: () {
+                    setState(() {
+                      /// Hide search button
+                      searchState = false;
+
+                      /// Close keyboard
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
+                  },
+                )
+        ],
       ),
-      body: Center(
-        child: Icon(
-          Icons.fastfood,
-          size: 200,
-          color: Color.fromARGB(255, 211, 211, 211),
-        ),
-      ),
+      body: Text('inputValue'),
     );
   }
 }
