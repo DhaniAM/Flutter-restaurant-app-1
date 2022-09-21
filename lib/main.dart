@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
+import 'package:restaurant_app_1/page/restaurant_screen.dart';
+import 'package:restaurant_app_1/widget/restaurant_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Local Restaurant',
-      home: HomeScreen(),
+    return MaterialApp(
+      title: "Local Restaurant",
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomeScreen(),
+        "/restaurantScreen": (context) => const RestaurantScreen(),
+      },
     );
   }
 }

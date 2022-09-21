@@ -4,13 +4,15 @@ import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 
 class RestaurantScreen extends StatelessWidget {
-  final String restaurantId;
+  static const routeName = "/restaurantScreen";
 
-  const RestaurantScreen({Key? key, required this.restaurantId})
-      : super(key: key);
+  const RestaurantScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// Get the Restaurant Id from Restaurant Card
+    final String args = ModalRoute.of(context)!.settings.arguments as String;
+
     const String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
 
     /// Line divider
@@ -23,7 +25,7 @@ class RestaurantScreen extends StatelessWidget {
     );
 
     return FutureBuilder(
-      future: ApiService().getRestaurantDetail(restaurantId),
+      future: ApiService().getRestaurantDetail(args),
       builder: (context, data) {
         if (data.hasData) {
           late RestaurantDetail restaurantDetail =
@@ -99,7 +101,8 @@ class RestaurantScreen extends StatelessWidget {
                                   Text(
                                     restaurant.address,
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(fontSize: 12, height: 1.5),
+                                    style: const TextStyle(
+                                        fontSize: 12, height: 1.5),
                                   ),
                                 ],
                               ),
@@ -162,7 +165,7 @@ class RestaurantScreen extends StatelessWidget {
                           ),
                         ),
 
-                        /// Foods Title
+                        /// Food Title
                         const SizedBox(
                           width: double.infinity,
                           child: Padding(
@@ -177,7 +180,7 @@ class RestaurantScreen extends StatelessWidget {
                           ),
                         ),
 
-                        /// Foods Item
+                        /// Food Item
                         SizedBox(
                           width: double.infinity,
                           child: Wrap(
@@ -191,7 +194,7 @@ class RestaurantScreen extends StatelessWidget {
                           ),
                         ),
 
-                        /// Drinks Title
+                        /// Drink Title
                         const SizedBox(
                           width: double.infinity,
                           child: Padding(
@@ -206,7 +209,7 @@ class RestaurantScreen extends StatelessWidget {
                           ),
                         ),
 
-                        /// Drinks Item
+                        /// Drink Item
                         SizedBox(
                           width: double.infinity,
                           child: Wrap(
@@ -226,7 +229,7 @@ class RestaurantScreen extends StatelessWidget {
                           children: [
                             for (int i = 0; i < reviewLen; i++)
                               ListTile(
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.reviews_rounded,
                                   color: Colors.pink,
                                 ),

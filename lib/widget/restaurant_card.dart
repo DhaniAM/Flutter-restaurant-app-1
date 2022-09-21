@@ -4,6 +4,8 @@ import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
 class RestaurantCard extends StatelessWidget {
   final RestaurantsList restaurantsList;
+
+  /// for getting each [Restaurant], not for passing to [RestaurantScreen]
   final int index;
 
   const RestaurantCard(
@@ -22,11 +24,11 @@ class RestaurantCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16, bottom: 4),
 
       /// Routing
+      /// pass Restaurant Id instead of index to get the [RestaurantDetail] on [RestaurantScreen]
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: ((context) {
-            return RestaurantScreen(restaurantId: restaurant.id);
-          })));
+          Navigator.pushNamed(context, RestaurantScreen.routeName,
+              arguments: restaurant.id);
         },
 
         /// Card Decoration

@@ -29,6 +29,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Local Restaurants"),
         backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: const Icon(
+                Icons.search_rounded,
+              ),
+            ),
+          ),
+        ],
       ),
 
       /// Each Restaurant List
