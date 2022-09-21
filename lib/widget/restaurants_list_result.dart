@@ -33,7 +33,7 @@ class RestaurantListResult extends StatelessWidget {
               return RestaurantCard(
                   restaurantsList: restaurantsList, index: index);
             }),
-            itemCount: restaurantsList.count,
+            itemCount: restaurantsList.founded,
           );
         } else {
           /// Loading Screen

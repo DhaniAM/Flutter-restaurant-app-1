@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<RestaurantsList> restaurantsList;
-  late Future<RestaurantDetail> restaurantDetail;
 
   /// This function called everytime the state change / widget is build
   @override

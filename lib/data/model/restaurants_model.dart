@@ -5,26 +5,42 @@ RestaurantsList restaurantsDataFromJson(String str) =>
     RestaurantsList.fromJson(json.decode(str));
 
 class RestaurantsList {
-  RestaurantsList({
-    required this.error,
-    required this.message,
-    required this.count,
-    required this.restaurants,
-  });
+  RestaurantsList(
+      {required this.error,
+      this.message,
+      this.count,
+      required this.restaurants,
+      this.founded});
 
   bool error;
-  String message;
-  int count;
+  int? count;
+  String? message;
+  int? founded;
   List<Restaurants> restaurants;
 
-  factory RestaurantsList.fromJson(Map<String, dynamic> json) =>
-      RestaurantsList(
+  factory RestaurantsList.fromJson(Map<String, dynamic> json) {
+    /// for [SearchScreen] result
+    if (json["message"] == null) {
+      return RestaurantsList(
+        error: json["error"],
+        founded: json["founded"],
+        restaurants: List<Restaurants>.from(
+            json["restaurants"].map((x) => Restaurants.fromJson(x))),
+      );
+
+      /// for [HomeScreen] result
+    } else if (json["founded"] == null) {
+      return RestaurantsList(
         error: json["error"],
         message: json["message"],
         count: json["count"],
         restaurants: List<Restaurants>.from(
             json["restaurants"].map((x) => Restaurants.fromJson(x))),
       );
+    } else {
+      throw Exception("Error loading API");
+    }
+  }
 }
 
 /// Overview of Restaurants detail, not so complete compared to [Restaurant] class

@@ -35,11 +35,11 @@ class ApiService {
   }
 
   /// for [HomeScreen] getting Search Result for [SearchScreen]
-  Future<Restaurants> getSearchResults(String searchText) async {
+  Future<RestaurantsList> getSearchResults(String searchText) async {
     final response =
         await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
     if (response.statusCode == 200) {
-      return Restaurants.fromJson(jsonDecode(response.body));
+      return RestaurantsList.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed to load search result -_-");
     }
