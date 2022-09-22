@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/data/state/home_provider.dart';
+import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
 
+/// Each Restaurant in [HomeScreen] and [SearchScreen]
 class RestaurantCard extends StatelessWidget {
   /// for getting each [Restaurant], not for passing to [RestaurantScreen]
-  final int index;
-
-  const RestaurantCard({Key? key, required this.index}) : super(key: key);
+  final Restaurants restaurants;
+  const RestaurantCard({Key? key, required this.restaurants}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const String smallImg = "https://restaurant-api.dicoding.dev/images/small/";
-
-    /// to shortened the link to access the object
-    final restaurant =
-        Provider.of<StateProvider>(context).restaurantsList.restaurants[index];
 
     /// Each Restaurant List
     return Padding(
@@ -26,7 +21,7 @@ class RestaurantCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, RestaurantScreen.routeName,
-              arguments: restaurant.id);
+              arguments: restaurants.id);
         },
 
         /// Card Decoration
@@ -52,9 +47,9 @@ class RestaurantCard extends StatelessWidget {
                 height: 80,
                 width: 80,
                 child: Hero(
-                  tag: restaurant.pictureId,
+                  tag: restaurants.pictureId,
                   child: Image.network(
-                    (smallImg + restaurant.pictureId),
+                    (smallImg + restaurants.pictureId),
                     loadingBuilder: (context, child, loadingProgress) {
                       /// When it's done loading
                       if (loadingProgress == null) return child;
@@ -79,13 +74,13 @@ class RestaurantCard extends StatelessWidget {
 
             /// Restaurant Name
             title: Text(
-              restaurant.name,
+              restaurants.name,
               style: const TextStyle(color: Colors.white),
             ),
 
             /// Restaurant Location
             subtitle: Text(
-              restaurant.city,
+              restaurants.city,
               style: const TextStyle(color: Colors.white),
             ),
 
@@ -98,7 +93,7 @@ class RestaurantCard extends StatelessWidget {
                   color: Colors.yellow,
                 ),
                 Text(
-                  restaurant.rating.toString(),
+                  restaurants.rating.toString(),
                   style: const TextStyle(color: Colors.white),
                 ),
               ],

@@ -169,7 +169,7 @@ class RestaurantScreen extends StatelessWidget {
                         const SizedBox(
                           width: double.infinity,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 16.0, top: 4),
+                            padding: EdgeInsets.only(left: 16.0, top: 16),
                             child: Text(
                               "Food",
                               style: TextStyle(
@@ -198,7 +198,7 @@ class RestaurantScreen extends StatelessWidget {
                         const SizedBox(
                           width: double.infinity,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 16, top: 8),
+                            padding: EdgeInsets.only(left: 16, top: 16),
                             child: Text(
                               "Drink",
                               style: TextStyle(
