@@ -6,17 +6,22 @@ enum RestoCurrentState { init, loading, noData, hasData, error }
 
 class RestaurantDetailProvider extends ChangeNotifier {
   ApiService apiService;
-  RestaurantDetailProvider({required this.apiService});
+  String resId;
+  RestaurantDetailProvider({required this.apiService, required this.resId}) {
+    _getRestaurantsDetail(resId);
+  }
+
   late RestaurantDetail _restaurantDetail;
   late RestoCurrentState _currentState;
   String _message = "";
+  final String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
 
   /// Getter
   RestaurantDetail get restaurantDetail => _restaurantDetail;
   RestoCurrentState get currentState => _currentState;
   String get message => _message;
 
-  Future getRestaurantsDetail(String restaurantId) async {
+  Future _getRestaurantsDetail(String restaurantId) async {
     try {
       _currentState = RestoCurrentState.loading;
       notifyListeners();
