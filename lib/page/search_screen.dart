@@ -1,109 +1,134 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/data/api/api_service.dart';
-import 'package:restaurant_app_1/data/model/restaurants_model.dart';
-import 'package:restaurant_app_1/data/state/StateProvider.dart';
+import 'package:restaurant_app_1/data/state/home_provider.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget {
   static const routeName = "/searchScreen";
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  /// to Notify listener everytime text updated and to get the Input value
-  final TextEditingController _controller = TextEditingController();
-  late Future<RestaurantsList> restaurantsList;
-
-  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => StateProvider(),
-      child: Consumer<StateProvider>(
-        builder: (context, StateProvider data, child) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
+    StateProvider provider = Provider.of<StateProvider>(context);
 
-              /// Input Text
-              title: TextField(
-                controller: _controller,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 2),
-                  ),
-                  hintText: "Search restaurant, tag, menu...",
-                  hintStyle: TextStyle(color: Colors.white),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
 
-                /// Everytime user type a letter, this onChanged get called and
-                /// [_controller] also get called
-                onChanged: (value) {
-                  setState(() {
-                    data.setSearchState = true;
-                  });
-                },
-                onSubmitted: (value) {
-                  setState(() {
-                    data.setSearchState = false;
-                    if (value != "") {
-                      restaurantsList =
-                          ApiService().getSearchResults(_controller.text);
-                      data.sethasData = true;
-                    }
-                  });
-                },
-              ),
-
-              /// Search Button
-              actions: <Widget>[
-                /// if not in [searchState], hide search button or if input is empty
-                (data.searchState == false || _controller.text.isEmpty)
-                    ? const SizedBox()
-                    : IconButton(
-                        icon: const Icon(Icons.search_rounded),
-                        onPressed: () {
-                          setState(() {
-                            /// Hide search button
-                            data.setSearchState = false;
-
-                            /// Close keyboard
-                            FocusManager.instance.primaryFocus?.unfocus();
-
-                            /// get Data
-                            if (_controller.text != "") {
-                              restaurantsList = ApiService()
-                                  .getSearchResults(_controller.text);
-                              data.sethasData = true;
-                            }
-                          });
-                        },
-                      )
-              ],
+        /// Input Text
+        title: TextField(
+          controller: provider.controller,
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
             ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 2),
+            ),
+            hintText: "Search restaurant, tag, menu...",
+            hintStyle: TextStyle(color: Colors.white),
+          ),
 
-            /// Search Result
-            body: data.hasData == false
-                ? const Center(
-                    child: Icon(
-                      Icons.fastfood,
-                      size: 200,
-                      color: Color.fromARGB(255, 206, 206, 206),
-                    ),
-                  )
-                : RestaurantListResult(restaurantsList: restaurantsList),
+          /// Everytime user type a letter, this onChanged get called and
+          /// [controller] also get called
+          onChanged: (value) {
+            provider.setSearchState(true);
+          },
+          onSubmitted: (value) {
+            provider.setSearchState(false);
+            if (value != "") {
+              provider.getSearchResult(provider.controller.text);
+              provider.setHasData(true);
+            }
+          },
+        ),
 
-            // body: Center(
-            //   child: Text(_controller.text),
-            // ),
-          );
+        /// Search Button
+        actions: <Widget>[
+          /// if not in [searchState], hide search button or if input is empty
+          (provider.searchState == false || provider.controller.text.isEmpty)
+              ? const SizedBox()
+              : IconButton(
+                  icon: const Icon(Icons.search_rounded),
+                  onPressed: () {
+                    /// Hide search button
+                    provider.setSearchState(false);
+
+                    /// Close keyboard
+                    FocusManager.instance.primaryFocus?.unfocus();
+
+                    /// get Data
+                    if (provider.controller.text != "") {
+                      provider.getSearchResult(provider.controller.text);
+                      provider.setHasData(true);
+                    }
+                  },
+                )
+        ],
+      ),
+
+      /// Search Result
+      body: Consumer<StateProvider>(
+        builder: (context, StateProvider value, child) {
+          /// Loading State
+          if (value.currentState == CurrentState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                  color: Color.fromRGBO(255, 106, 106, 1)),
+            );
+
+            /// No Data State
+          } else if (value.currentState == CurrentState.noData) {
+            return Center(
+              child: Column(
+                children: [
+                  const Icon(
+                    Icons.cancel,
+                    size: 200,
+                    color: Color.fromARGB(255, 221, 221, 221),
+                  ),
+                  Text(provider.message),
+                ],
+              ),
+            );
+
+            /// Error Data State
+          } else if (value.currentState == CurrentState.error) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.error_rounded,
+                    size: 200,
+                    color: Color.fromARGB(255, 221, 221, 221),
+                  ),
+                  Text(provider.message),
+                ],
+              ),
+            );
+
+            /// Has Data State
+          } else if (value.currentState == CurrentState.hasData) {
+            return RestaurantListResult(
+                restaurantsList: value.restaurantSearchList);
+
+            /// Default State
+          } else {
+            return Center(
+              child: Column(
+                children: const [
+                  Icon(
+                    Icons.fastfood,
+                    size: 200,
+                    color: Color.fromARGB(255, 221, 221, 221),
+                  ),
+                  Text("Search Something"),
+                ],
+              ),
+            );
+          }
         },
       ),
     );

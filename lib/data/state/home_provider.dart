@@ -14,13 +14,12 @@ class StateProvider extends ChangeNotifier {
   }
 
   late RestaurantsList _restaurantsList;
-  late RestaurantDetail _restaurantDetail;
-  late CurrentState _currentState;
-  String _message = "";
-
   RestaurantsList get restaurantsList => _restaurantsList;
-  RestaurantDetail get restaurantDetail => _restaurantDetail;
-  CurrentState get resultState => _currentState;
+
+  late CurrentState _currentState;
+  CurrentState get currentState => _currentState;
+
+  String _message = "";
   String get message => _message;
 
   Future _getRestaurantsList() async {
@@ -58,63 +57,22 @@ class StateProvider extends ChangeNotifier {
     }
   }
 
-  Future getRestaurantsDetail(String restaurantId) async {
-    try {
-      _currentState = CurrentState.loading;
-      notifyListeners();
-      final RestaurantDetail restaurant =
-          await ApiService().getRestaurantDetail(restaurantId);
-
-      if (restaurant.message != "success") {
-        _currentState = CurrentState.noData;
-        notifyListeners();
-        return _message = "Fetching data failed -_-";
-      } else {
-        _currentState = CurrentState.hasData;
-        notifyListeners();
-        return _restaurantDetail = restaurant;
-      }
-    } catch (e) {
-      _currentState = CurrentState.error;
-      notifyListeners();
-      return _message = "Error loading data -_-";
-    }
-  }
-
-  Future getSearchResult(String searchText) async {
-    try {
-      _currentState = CurrentState.loading;
-      notifyListeners();
-      RestaurantsList restaurantsList =
-          await ApiService().getSearchResults(searchText);
-      if (restaurantsList.restaurants.isEmpty) {
-        _currentState = CurrentState.noData;
-        notifyListeners();
-        return _message = "No data -_-";
-      } else {
-        _currentState = CurrentState.hasData;
-        notifyListeners();
-        return _restaurantsList = restaurantsList;
-      }
-    } catch (e) {
-      _currentState = CurrentState.error;
-      notifyListeners();
-      return _message = "Error loading data -_-";
-    }
-  }
-
   /// for [SearchScreen]
+  TextEditingController _controller = TextEditingController();
   bool _searchState = false;
   bool _hasData = false;
 
+  TextEditingController get controller => _controller;
   bool get searchState => _searchState;
   bool get hasData => _hasData;
 
-  set setSearchState(bool value) {
+  setSearchState(bool value) {
     _searchState = value;
+    notifyListeners();
   }
 
-  set sethasData(bool value) {
+  setHasData(bool value) {
     _hasData = value;
+    notifyListeners();
   }
 }

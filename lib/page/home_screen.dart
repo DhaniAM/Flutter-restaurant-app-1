@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/data/state/StateProvider.dart';
+import 'package:restaurant_app_1/data/state/home_provider.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
 
@@ -33,7 +33,9 @@ class HomeScreen extends StatelessWidget {
 
       /// Each Restaurant List
       body: Consumer<StateProvider>(
-        builder: (context, value, child) => const RestaurantListResult(),
+        builder: (context, StateProvider value, child) => RestaurantListResult(
+          restaurantsList: value.restaurantsList,
+        ),
       ),
     );
   }
