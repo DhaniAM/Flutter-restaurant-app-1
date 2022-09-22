@@ -17,7 +17,8 @@ class RestaurantCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16, bottom: 4),
 
       /// Routing
-      /// pass Restaurant Id instead of index to get the [RestaurantDetail] on [RestaurantScreen]
+      /// pass Restaurant Id instead of index to get
+      /// the [RestaurantDetail] on [RestaurantScreen]
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, RestaurantScreen.routeName,
@@ -38,8 +39,9 @@ class RestaurantCard extends StatelessWidget {
               )
             ],
           ),
+
+          /// Card itself
           child: ListTile(
-            //
             /// Restaurant Image
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
@@ -50,8 +52,9 @@ class RestaurantCard extends StatelessWidget {
                   tag: restaurants.pictureId,
                   child: Image.network(
                     (smallImg + restaurants.pictureId),
+
+                    /// When it's done loading
                     loadingBuilder: (context, child, loadingProgress) {
-                      /// When it's done loading
                       if (loadingProgress == null) return child;
 
                       /// While still loading
@@ -59,6 +62,8 @@ class RestaurantCard extends StatelessWidget {
                           child: CircularProgressIndicator(
                               color: Color.fromRGBO(255, 106, 106, 1)));
                     },
+
+                    /// When error
                     errorBuilder: (context, error, stackTrace) {
                       return Column(
                         children: const <Widget>[

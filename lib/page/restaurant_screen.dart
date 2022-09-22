@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
+import 'package:restaurant_app_1/widget/my_divider.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
 
 class RestaurantScreen extends StatelessWidget {
@@ -13,14 +14,6 @@ class RestaurantScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Line divider
-    Divider myDivider = const Divider(
-      color: Color.fromRGBO(255, 175, 175, 0.8),
-      thickness: 1,
-      height: 24,
-      indent: 5,
-      endIndent: 5,
-    );
     final id = ModalRoute.of(context)!.settings.arguments as String;
 
     return ChangeNotifierProvider(
@@ -28,6 +21,7 @@ class RestaurantScreen extends StatelessWidget {
           RestaurantDetailProvider(apiService: ApiService(), resId: id),
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, data, child) {
+          /// if Init or Loading state
           if (data.currentState == RestoCurrentState.init ||
               data.currentState == RestoCurrentState.loading) {
             return const Scaffold(
@@ -36,13 +30,19 @@ class RestaurantScreen extends StatelessWidget {
                     color: Color.fromRGBO(255, 106, 106, 1)),
               ),
             );
+
+            /// No Data state
           } else if (data.currentState == RestoCurrentState.noData) {
             return Scaffold(
                 body: StateMessage(icon: Icons.fastfood, text: data.message));
+
+            /// Error state
           } else if (data.currentState == RestoCurrentState.error) {
             return Scaffold(
                 body: StateMessage(
                     icon: Icons.cancel_rounded, text: data.message));
+
+            /// HasData state
           } else {
             final Restaurant restaurant = data.restaurantDetail.restaurant;
             final int resFoodsLen = restaurant.menus.foods.length;
@@ -58,7 +58,6 @@ class RestaurantScreen extends StatelessWidget {
               body: SafeArea(
                 child: ListView(
                   children: <Widget>[
-                    //
                     /// Main Image
                     Hero(
                       tag: restaurant.pictureId,
@@ -77,8 +76,7 @@ class RestaurantScreen extends StatelessWidget {
                         errorBuilder: (context, error, stackTrace) {
                           return const SizedBox(
                             height: 200,
-                            child:
-                                Center(child: Text("Error loading image -_-")),
+                            child: Center(child: Text("Error loading image")),
                           );
                         },
                       ),
@@ -138,7 +136,7 @@ class RestaurantScreen extends StatelessWidget {
                             ],
                           ),
 
-                          myDivider,
+                          const MyDivider(),
 
                           /// Category
                           Row(
@@ -148,20 +146,21 @@ class RestaurantScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Chip(
-                                      label: Text(
-                                        restaurant.categories[i].name,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 20),
-                                      backgroundColor: const Color.fromRGBO(
-                                          255, 139, 139, 1)),
+                                    label: Text(
+                                      restaurant.categories[i].name,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20),
+                                    backgroundColor:
+                                        const Color.fromRGBO(255, 139, 139, 1),
+                                  ),
                                 ),
                             ],
                           ),
 
-                          myDivider,
+                          const MyDivider(),
 
                           /// Description
                           Text(
@@ -169,7 +168,7 @@ class RestaurantScreen extends StatelessWidget {
                             style: const TextStyle(fontSize: 15),
                           ),
 
-                          myDivider,
+                          const MyDivider(),
 
                           /// Menu Title
                           const Text(
@@ -239,10 +238,11 @@ class RestaurantScreen extends StatelessWidget {
                             ),
                           ),
 
-                          myDivider,
+                          const MyDivider(),
 
+                          /// Review Item
                           Column(
-                            children: [
+                            children: <Widget>[
                               for (int i = 0; i < reviewLen; i++)
                                 ListTile(
                                   leading: const Icon(

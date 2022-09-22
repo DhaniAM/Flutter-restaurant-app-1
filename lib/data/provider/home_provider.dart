@@ -19,6 +19,7 @@ class HomeProvider extends ChangeNotifier {
   HomeCurrentState get currentState => _currentState;
   String get message => _message;
 
+  /// Setter
   setCurrentState(HomeCurrentState state) => _currentState = state;
 
   Future _getRestaurantsList() async {

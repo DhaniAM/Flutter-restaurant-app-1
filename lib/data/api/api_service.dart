@@ -9,8 +9,7 @@ class ApiService {
   static const String _listQuery = "/list";
   static const String _searchQuery = "/search?q=";
 
-  /// for [HomeScreen] getting List of Restaurants
-  /// get ALL Restaurants List
+  /// for [HomeProvider] getting List of Restaurants
   Future<RestaurantsList> getRestaurantsList() async {
     final response = await http.get(Uri.parse(_baseUrl + _listQuery));
     if (response.statusCode == 200) {
@@ -22,17 +21,7 @@ class ApiService {
     }
   }
 
-  /// for [HomeScreen] getting Overview of Restaurant Detail
-  // Future<Restaurants> getRestaurantsDetail(String id) async {
-  //   final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
-  //   if (response.statusCode == 200) {
-  //     return Restaurants.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception("Failed to load restaurant detail -_-");
-  //   }
-  // }
-
-  /// for [HomeScreen] getting Search Result for [SearchScreen]
+  /// for [SearchProvider] getting Search result
   Future<RestaurantsList> getSearchResults(String searchText) async {
     final response =
         await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
@@ -43,7 +32,7 @@ class ApiService {
     }
   }
 
-  /// for [RestaurantScreen] getting Complete Restaurant Detail
+  /// for [RestaurantDetailProvider]
   Future<RestaurantDetail> getRestaurantDetail(String id) async {
     final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
     if (response.statusCode == 200) {

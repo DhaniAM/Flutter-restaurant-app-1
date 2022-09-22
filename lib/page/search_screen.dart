@@ -20,6 +20,7 @@ class SearchScreen extends StatelessWidget {
           /// Input Text
           title: Consumer<SearchProvider>(
             builder: (context, SearchProvider data, child) {
+              /// Search input
               return TextField(
                 controller: data.controller,
                 style: const TextStyle(color: Colors.white),
@@ -35,15 +36,17 @@ class SearchScreen extends StatelessWidget {
                 ),
 
                 /// Everytime user type a letter, this onChanged get called and
-                /// [controller] also get called
+                /// [controller] also get called, showing the search button
                 onChanged: (value) {
                   data.setSearchState(true);
                 },
                 onSubmitted: (value) {
+                  /// hiding the search button when user press Enter or
+                  /// clicking Search button
                   data.setSearchState(false);
                   if (value != "") {
+                    /// get search result
                     data.getSearchResult(data.controller.text);
-                    data.setHasData(true);
                   }
                 },
               );
@@ -70,7 +73,6 @@ class SearchScreen extends StatelessWidget {
                           /// get Data
                           if (data.controller.text != "") {
                             data.getSearchResult(data.controller.text);
-                            data.setHasData(true);
                           }
                         },
                       );

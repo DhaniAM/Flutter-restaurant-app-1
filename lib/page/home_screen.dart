@@ -11,10 +11,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
+    /// can use the state
     return ChangeNotifierProvider(
+      /// create here used to use Provider
       create: (context) => HomeProvider(apiService: ApiService()),
       child: Scaffold(
-        /// App Bar
         appBar: AppBar(
           title: const Text("Local Restaurants"),
           backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
@@ -38,19 +40,28 @@ class HomeScreen extends StatelessWidget {
         /// Each Restaurant List
         body: Consumer<HomeProvider>(
           builder: (context, HomeProvider data, child) {
+            /// Loading state
             if (data.currentState == HomeCurrentState.loading) {
               return const Center(
                 child: CircularProgressIndicator(
                     color: Color.fromRGBO(255, 106, 106, 1)),
               );
+
+              /// No Data state
             } else if (data.currentState == HomeCurrentState.noData) {
               return StateMessage(icon: Icons.fastfood, text: data.message);
+
+              /// Error state
             } else if (data.currentState == HomeCurrentState.error) {
               return StateMessage(
                   icon: Icons.cancel_rounded, text: data.message);
+
+              /// hasData state
             } else if (data.currentState == HomeCurrentState.hasData) {
               return RestaurantListResult(
                   restaurantsList: data.restaurantsList);
+
+              /// state when the Screen start
             } else {
               return StateMessage(icon: Icons.fastfood, text: data.message);
             }

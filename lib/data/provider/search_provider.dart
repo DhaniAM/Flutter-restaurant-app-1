@@ -11,11 +11,12 @@ class SearchProvider extends ChangeNotifier {
   late RestaurantsList _restaurantsList;
   SearchCurrentState _searchCurrentState = SearchCurrentState.init;
   String _message = "";
+
+  /// For Text Input
   final TextEditingController _controller = TextEditingController();
 
   /// for Search button state
   bool _searchState = false; // is user still focus on search bar
-  bool _hasText = false; // is the search bar has text
 
   /// Getter
   RestaurantsList get restaurantsList => _restaurantsList;
@@ -25,16 +26,10 @@ class SearchProvider extends ChangeNotifier {
 
   /// for Search icon
   bool get searchState => _searchState;
-  bool get hasText => _hasText;
 
   /// Setter
   setSearchState(bool value) {
     _searchState = value;
-    notifyListeners();
-  }
-
-  setHasData(bool value) {
-    _hasText = value;
     notifyListeners();
   }
 
