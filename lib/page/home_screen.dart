@@ -9,39 +9,30 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => StateProvider(),
-      child: Scaffold(
+    return Scaffold(
+      /// App Bar
+      appBar: AppBar(
+        title: const Text("Local Restaurants"),
+        backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
 
-          /// App Bar
-          appBar: AppBar(
-            title: const Text("Local Restaurants"),
-            backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
-
-            /// Search Icon
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, SearchScreen.routeName);
-                  },
-                  child: const Icon(
-                    Icons.search_rounded,
-                  ),
-                ),
+        /// Search Icon
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, SearchScreen.routeName);
+              },
+              child: const Icon(
+                Icons.search_rounded,
               ),
-            ],
+            ),
           ),
+        ],
+      ),
 
-          /// Each Restaurant List
-          body: Consumer<StateProvider>(
-            builder: (context, StateProvider data, child) {
-              return RestaurantListResult(
-                restaurantsList: data.restaurantsList,
-              );
-            },
-          )),
+      /// Each Restaurant List
+      body: const RestaurantListResult(),
     );
   }
 }
