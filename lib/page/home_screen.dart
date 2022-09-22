@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
       ),
 
       /// Each Restaurant List
-      body: const RestaurantListResult(),
+      body: Consumer<StateProvider>(
+        builder: (context, value, child) => const RestaurantListResult(),
+      ),
     );
   }
 }

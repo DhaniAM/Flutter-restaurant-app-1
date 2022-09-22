@@ -6,6 +6,8 @@ import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 enum CurrentState { loading, noData, hasData, error }
 
 class StateProvider extends ChangeNotifier {
+  /// to Fetch data from API from the start when StateProvider is created in
+  /// [main.dart]
   final ApiService apiService;
   StateProvider({required this.apiService}) {
     _getRestaurantsList();

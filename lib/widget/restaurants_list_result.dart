@@ -4,22 +4,16 @@ import 'package:restaurant_app_1/data/state/StateProvider.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
 import 'package:provider/provider.dart';
 
-
 class RestaurantListResult extends StatelessWidget {
   const RestaurantListResult({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, StateProvider value, child) {
-        return ListView.builder(
-          itemCount: value.getRestaurantsList(),
-          itemBuilder: (context, index) {
-            if(value.getRestaurantsList())
-          },
-
-          )
-        
+    final restaurantsList = Provider.of<StateProvider>(context).restaurantsList;
+    return ListView.builder(
+      itemCount: restaurantsList.restaurants.length,
+      itemBuilder: (context, index) {
+        return RestaurantCard(index: index);
       },
     );
   }
