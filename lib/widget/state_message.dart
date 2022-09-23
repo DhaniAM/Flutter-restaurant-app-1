@@ -8,8 +8,9 @@ class StateMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        direction: Axis.vertical,
         children: [
           Icon(
             icon,
