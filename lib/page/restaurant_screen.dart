@@ -49,6 +49,7 @@ class RestaurantScreen extends StatelessWidget {
             final int resDrinksLen = restaurant.menus.drinks.length;
             final int tagLen = restaurant.categories.length;
             final int reviewLen = restaurant.customerReviews.length;
+
             return Scaffold(
               /// App Bar Ttitle
               appBar: AppBar(
@@ -139,10 +140,28 @@ class RestaurantScreen extends StatelessWidget {
                                 ),
                               ),
 
+                              /// Favorite Icon
                               Flexible(
-                                flex: 1,
-                                child: Icon(Icons.favorite_border),
-                              ),
+                                  flex: 1,
+                                  child: (data.favPrefs == false)
+                                      ? IconButton(
+                                          onPressed: () {
+                                            data.toggleFavPref(data.resId);
+                                          },
+                                          icon: const Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.grey,
+                                          ),
+                                        )
+                                      : IconButton(
+                                          onPressed: () {
+                                            data.toggleFavPref(data.resId);
+                                          },
+                                          icon: const Icon(
+                                            Icons.favorite,
+                                            color: Colors.pink,
+                                          ),
+                                        )),
                             ],
                           ),
 
