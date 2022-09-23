@@ -30,9 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # MY MODULE
+  # MY MODULE -------------
   provider: ^6.0.3
   http: ^0.13.5
+  shared_preferences: ^2.0.15
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

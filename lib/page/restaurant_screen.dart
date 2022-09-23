@@ -87,11 +87,13 @@ class RestaurantScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: <Widget>[
+                          //
                           /// Title Content
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Flexible(
+                                flex: 5,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -122,16 +124,24 @@ class RestaurantScreen extends StatelessWidget {
                               ),
 
                               /// Restaurant rating
-                              Row(
-                                children: <Widget>[
-                                  const Icon(
-                                    Icons.star_rounded,
-                                    color: Colors.yellow,
-                                  ),
-                                  Text(
-                                    restaurant.rating.toString(),
-                                  ),
-                                ],
+                              Flexible(
+                                flex: 1,
+                                child: Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      restaurant.rating.toString(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              Flexible(
+                                flex: 1,
+                                child: Icon(Icons.favorite_border),
                               ),
                             ],
                           ),
