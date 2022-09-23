@@ -67,6 +67,21 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: 0,
+          onTap: (value) {},
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.house),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_sharp),
+              label: 'Favorite',
+            ),
+          ],
+        ),
       ),
     );
   }
