@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
-import 'package:restaurant_app_1/data/provider/favorite_provier.dart';
+import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
@@ -62,18 +62,14 @@ class RestaurantScreen extends StatelessWidget {
             final int tagLen = restaurant.categories.length;
             final int reviewLen = restaurant.customerReviews.length;
 
-            bool isFav;
-
             /// getting is favorite for each restaurant
             favData.isFavPref(resData.resId).then((value) => {
                   if (value == true)
                     {
-                      isFav = true,
                       favData.setIsFav = true,
                     }
                   else
                     {
-                      isFav = false,
                       favData.setIsFav = false,
                     }
                 });

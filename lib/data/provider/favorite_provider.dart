@@ -42,12 +42,16 @@ class FavoriteProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> isFavPref(String id) async {
-    _currentState = FavoriteState.loading;
-    final SharedPreferences data = await SharedPreferences.getInstance();
-    final bool pref = data.getBool('isFav$id') ?? false;
-    _currentState = FavoriteState.hasData;
-    return pref;
+  Future isFavPref(String id) async {
+    try {
+      _currentState = FavoriteState.loading;
+      final SharedPreferences data = await SharedPreferences.getInstance();
+      final bool pref = data.getBool('isFav$id') ?? false;
+      _currentState = FavoriteState.hasData;
+      return pref;
+    } catch (e) {
+      return e;
+    }
   }
 
   /// toggle favPref on or off from icon press
