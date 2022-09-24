@@ -5,6 +5,8 @@ import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 enum RestoCurrentState { init, loading, noData, hasData, error }
 
 /// For each restaurant
+/// When this object created, _getRestaurantDetail called
+/// and the field get its data and then we use it
 class RestaurantDetailProvider extends ChangeNotifier {
   ApiService apiService;
   String resId;
@@ -44,7 +46,4 @@ class RestaurantDetailProvider extends ChangeNotifier {
       return _message = "Error loading data";
     }
   }
-
-  /// We can get the SharedPreferences data anywhere, just use
-  /// await SharedPreferences.getInstance()
 }

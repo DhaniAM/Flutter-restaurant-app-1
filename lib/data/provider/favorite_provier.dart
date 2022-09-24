@@ -1,18 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FavoriteProvider extends ChangeNotifier {
-  String resId;
-  FavoriteProvider({required this.resId}) {
-    setFavPref(resId);
-  }
+enum FavoriteState { loading, hasData }
 
-  /// so restaurant_screen can get the prefs value
-  late bool favPrefs;
+class FavoriteProvider extends ChangeNotifier {
+  /// to get
+  /// /// CHANGE THIS LATER
+  bool? _isFav;
+  late FavoriteState _currentState;
+
+  /// Getter
+  bool? get isFav => _isFav;
+  FavoriteState get currentState => _currentState;
+
+  set setIsFav(bool value) {
+    _isFav = value;
+    notifyListeners();
+  }
 
   /// set init value for favPrefs,
   /// not for init SharedPreferences value
-  setFavPref(String id) async {
+  void _setFavPref(String id) async {
+    _currentState = FavoriteState.loading;
+
     /// get SharedPreferences from local storage
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -22,29 +32,40 @@ class FavoriteProvider extends ChangeNotifier {
 
     /// data in here is always either true or false, never null because ?? false
     if (data == false) {
-      favPrefs = false;
+      _isFav = false;
+      _currentState = FavoriteState.hasData;
       notifyListeners();
-      return favPrefs;
     } else {
-      favPrefs = true;
+      _isFav = true;
+      _currentState = FavoriteState.hasData;
       notifyListeners();
-      return favPrefs;
     }
+  }
+
+  Future<bool> isFavPref(String id) async {
+    _currentState = FavoriteState.loading;
+    final SharedPreferences data = await SharedPreferences.getInstance();
+    final bool pref = data.getBool('isFav$id') ?? false;
+    _currentState = FavoriteState.hasData;
+    return pref;
   }
 
   /// toggle favPref on or off from icon press
   void toggleFavPref(String id) async {
-    SharedPreferences data = await SharedPreferences.getInstance();
-    bool isFavValue = data.getBool('isFav$id') ?? false;
+    _currentState = FavoriteState.loading;
+    final SharedPreferences data = await SharedPreferences.getInstance();
+    final bool isFavValue = data.getBool('isFav$id') ?? false;
 
     /// data in here is always either true or false, never null because ?? false
     if (isFavValue == false) {
       data.setBool('isFav$id', true);
-      favPrefs = true;
+      _isFav = true;
+      _currentState = FavoriteState.hasData;
       notifyListeners();
     } else {
       data.setBool('isFav$id', false);
-      favPrefs = false;
+      _isFav = false;
+      _currentState = FavoriteState.hasData;
       notifyListeners();
     }
   }

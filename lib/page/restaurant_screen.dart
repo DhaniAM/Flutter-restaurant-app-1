@@ -25,7 +25,7 @@ class RestaurantScreen extends StatelessWidget {
               RestaurantDetailProvider(apiService: ApiService(), resId: id),
         ),
         ListenableProvider<FavoriteProvider>(
-          create: (context) => FavoriteProvider(resId: id),
+          create: (context) => FavoriteProvider(),
         ),
       ],
 
@@ -61,6 +61,22 @@ class RestaurantScreen extends StatelessWidget {
             final int resDrinksLen = restaurant.menus.drinks.length;
             final int tagLen = restaurant.categories.length;
             final int reviewLen = restaurant.customerReviews.length;
+
+            bool isFav;
+
+            /// getting is favorite for each restaurant
+            favData.isFavPref(resData.resId).then((value) => {
+                  if (value == true)
+                    {
+                      isFav = true,
+                      favData.setIsFav = true,
+                    }
+                  else
+                    {
+                      isFav = false,
+                      favData.setIsFav = false,
+                    }
+                });
 
             return Scaffold(
               /// App Bar Ttitle
@@ -154,28 +170,27 @@ class RestaurantScreen extends StatelessWidget {
 
                               /// Favorite Icon
                               Flexible(
-                                  flex: 1,
-                                  child: (favData.favPrefs == false)
-                                      ? IconButton(
-                                          onPressed: () {
-                                            favData
-                                                .toggleFavPref(resData.resId);
-                                          },
-                                          icon: const Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.grey,
-                                          ),
-                                        )
-                                      : IconButton(
-                                          onPressed: () {
-                                            favData
-                                                .toggleFavPref(resData.resId);
-                                          },
-                                          icon: const Icon(
-                                            Icons.favorite,
-                                            color: Colors.pink,
-                                          ),
-                                        )),
+                                flex: 1,
+                                child: (favData.isFav == true)
+                                    ? IconButton(
+                                        onPressed: () {
+                                          favData.toggleFavPref(resData.resId);
+                                        },
+                                        icon: const Icon(
+                                          Icons.favorite,
+                                          color: Colors.pink,
+                                        ),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          favData.toggleFavPref(resData.resId);
+                                        },
+                                        icon: const Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                              ),
                             ],
                           ),
 
