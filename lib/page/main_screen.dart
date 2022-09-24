@@ -3,12 +3,24 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
-import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
-import 'package:restaurant_app_1/widget/state_message.dart';
+import 'package:restaurant_app_1/widget/favorite_list_result.dart';
+import 'package:restaurant_app_1/widget/home_screen_result.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  static const String routeName = '/';
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentTabIndex = 0;
+
+  List<Widget> widgetToBuild = const <Widget>[
+    HomeScreenResult(),
+    FavoriteListResult(),
+  ];
   @override
   Widget build(BuildContext context) {
     /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
@@ -18,7 +30,9 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeProvider(apiService: ApiService()),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Local Restaurants"),
+          title: (_currentTabIndex == 0)
+              ? const Text('Local Restaurants')
+              : const Text('Favorite Restaurants'),
           backgroundColor: const Color.fromRGBO(255, 106, 106, 1),
 
           /// Search Icon
@@ -38,39 +52,15 @@ class HomeScreen extends StatelessWidget {
         ),
 
         /// Each Restaurant List
-        body: Consumer<HomeProvider>(
-          builder: (context, HomeProvider data, child) {
-            /// Loading state
-            if (data.currentState == HomeCurrentState.loading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                    color: Color.fromRGBO(255, 106, 106, 1)),
-              );
-
-              /// No Data state
-            } else if (data.currentState == HomeCurrentState.noData) {
-              return StateMessage(icon: Icons.fastfood, text: data.message);
-
-              /// Error state
-            } else if (data.currentState == HomeCurrentState.error) {
-              return StateMessage(
-                  icon: Icons.cancel_rounded, text: data.message);
-
-              /// hasData state
-            } else if (data.currentState == HomeCurrentState.hasData) {
-              return RestaurantListResult(
-                  restaurantsList: data.restaurantsList);
-
-              /// state when the Screen start
-            } else {
-              return StateMessage(icon: Icons.fastfood, text: data.message);
-            }
-          },
-        ),
+        body: widgetToBuild[_currentTabIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          currentIndex: 0,
-          onTap: (value) {},
+          currentIndex: _currentTabIndex,
+          onTap: (index) {
+            setState(() {
+              _currentTabIndex = index;
+            });
+          },
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.house),
