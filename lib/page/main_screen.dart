@@ -6,15 +6,15 @@ import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/widget/favorite_list_result.dart';
 import 'package:restaurant_app_1/widget/home_screen_result.dart';
 
-class HomeScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   static const String routeName = '/';
-  const HomeScreen({Key? key}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   int _currentTabIndex = 0;
 
   List<Widget> widgetToBuild = const <Widget>[

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
+import 'package:restaurant_app_1/data/provider/favorite_provier.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
@@ -16,14 +17,24 @@ class RestaurantScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)!.settings.arguments as String;
 
-    return ChangeNotifierProvider(
-      create: (context) =>
-          RestaurantDetailProvider(apiService: ApiService(), resId: id),
-      child: Consumer<RestaurantDetailProvider>(
-        builder: (context, data, child) {
+    /// MultiProvider used to use multiple consumer
+    return MultiProvider(
+      providers: <ListenableProvider>[
+        ListenableProvider<RestaurantDetailProvider>(
+          create: (context) =>
+              RestaurantDetailProvider(apiService: ApiService(), resId: id),
+        ),
+        ListenableProvider<FavoriteProvider>(
+          create: (context) => FavoriteProvider(resId: id),
+        ),
+      ],
+
+      /// used Consumer2 because we have 2 consumer to use
+      child: Consumer2<RestaurantDetailProvider, FavoriteProvider>(
+        builder: (context, resData, favData, child) {
           /// if Init or Loading state
-          if (data.currentState == RestoCurrentState.init ||
-              data.currentState == RestoCurrentState.loading) {
+          if (resData.currentState == RestoCurrentState.init ||
+              resData.currentState == RestoCurrentState.loading) {
             return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(
@@ -32,19 +43,20 @@ class RestaurantScreen extends StatelessWidget {
             );
 
             /// No Data state
-          } else if (data.currentState == RestoCurrentState.noData) {
+          } else if (resData.currentState == RestoCurrentState.noData) {
             return Scaffold(
-                body: StateMessage(icon: Icons.fastfood, text: data.message));
+                body:
+                    StateMessage(icon: Icons.fastfood, text: resData.message));
 
             /// Error state
-          } else if (data.currentState == RestoCurrentState.error) {
+          } else if (resData.currentState == RestoCurrentState.error) {
             return Scaffold(
                 body: StateMessage(
-                    icon: Icons.cancel_rounded, text: data.message));
+                    icon: Icons.cancel_rounded, text: resData.message));
 
             /// HasData state
           } else {
-            final Restaurant restaurant = data.restaurantDetail.restaurant;
+            final Restaurant restaurant = resData.restaurantDetail.restaurant;
             final int resFoodsLen = restaurant.menus.foods.length;
             final int resDrinksLen = restaurant.menus.drinks.length;
             final int tagLen = restaurant.categories.length;
@@ -65,7 +77,7 @@ class RestaurantScreen extends StatelessWidget {
 
                       /// Added Loading builder to show loading screen
                       child: Image.network(
-                        (data.medImg + restaurant.pictureId),
+                        (resData.medImg + restaurant.pictureId),
                         loadingBuilder: (context, child, loadingProgress) {
                           /// When it's done loading
                           if (loadingProgress == null) return child;
@@ -143,10 +155,11 @@ class RestaurantScreen extends StatelessWidget {
                               /// Favorite Icon
                               Flexible(
                                   flex: 1,
-                                  child: (data.favPrefs == false)
+                                  child: (favData.favPrefs == false)
                                       ? IconButton(
                                           onPressed: () {
-                                            data.toggleFavPref(data.resId);
+                                            favData
+                                                .toggleFavPref(resData.resId);
                                           },
                                           icon: const Icon(
                                             Icons.favorite_border,
@@ -155,7 +168,8 @@ class RestaurantScreen extends StatelessWidget {
                                         )
                                       : IconButton(
                                           onPressed: () {
-                                            data.toggleFavPref(data.resId);
+                                            favData
+                                                .toggleFavPref(resData.resId);
                                           },
                                           icon: const Icon(
                                             Icons.favorite,

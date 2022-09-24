@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: "Local Restaurant",
       initialRoute: "/",
       routes: {
-        "/": (context) => const HomeScreen(),
+        "/": (context) => const MainScreen(),
         RestaurantScreen.routeName: (context) => const RestaurantScreen(),
         SearchScreen.routeName: (context) => const SearchScreen(),
       },
