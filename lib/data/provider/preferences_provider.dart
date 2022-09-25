@@ -15,7 +15,7 @@ class PreferencesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void enableScheduledRestaurant(bool value) {
+  void toggleScheduledRestaurant(bool value) {
     preferencesHelper.setScheduledRestaurant(value);
     _getIsScheduledRestaurant();
   }
