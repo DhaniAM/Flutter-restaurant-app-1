@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/common/navigation.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
@@ -27,7 +28,7 @@ class RestaurantCard extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               value.getRestaurantsDetail(restaurants.id);
-              Navigator.pushNamed(context, RestaurantScreen.routeName, arguments: restaurants.id);
+              Navigation.intentWithData(RestaurantScreen.routeName, restaurants.id);
             },
 
             /// Card Decoration

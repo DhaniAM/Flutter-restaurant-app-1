@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/common/navigation.dart';
 import 'package:restaurant_app_1/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app_1/page/favorite_screen.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
@@ -55,7 +56,8 @@ class _MainScreenState extends State<MainScreen> {
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, SearchScreen.routeName);
+                Navigation.intentWithoutData(SearchScreen.routeName);
+                // Navigator.pushNamed(context, SearchScreen.routeName);
               },
               child: const Icon(
                 Icons.search_rounded,
