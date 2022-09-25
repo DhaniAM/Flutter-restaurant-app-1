@@ -13,26 +13,22 @@ class FavoriteScreen extends StatelessWidget {
     return Consumer<FavoriteListProvider>(
       builder: (context, data, child) {
         /// Loading state
-        if (data.currentState == GetFavoriteState.loading) {
+        if (data.currentState == FavoriteListState.loading) {
           return const Center(
             child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
           );
 
           /// No Data state
-        } else if (data.currentState == GetFavoriteState.noData) {
+        } else if (data.currentState == FavoriteListState.noData) {
           return StateMessage(icon: Icons.heart_broken, text: data.message);
 
           /// Error state
-        } else if (data.currentState == GetFavoriteState.error) {
+        } else if (data.currentState == FavoriteListState.error) {
           return StateMessage(icon: Icons.cancel_rounded, text: data.message);
 
           /// hasData state
-        } else if (data.currentState == GetFavoriteState.hasData) {
-          return FavoriteListBuilder(restaurantsList: data.favoriteRestaurants);
-
-          /// no internet state
         } else {
-          return StateMessage(icon: Icons.cancel, text: data.message);
+          return FavoriteListBuilder(restaurantsList: data.favoriteRestaurants);
         }
       },
     );

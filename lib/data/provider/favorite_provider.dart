@@ -10,7 +10,7 @@ class FavoriteProvider extends ChangeNotifier {
 
   late bool _isFav;
   late FavoriteState _currentState;
-  late String _message;
+  String _message = 'No error';
 
   /// Getter
   bool get isFav => _isFav;
@@ -29,7 +29,7 @@ class FavoriteProvider extends ChangeNotifier {
 
       final SharedPreferences data = await SharedPreferences.getInstance();
 
-      /// if no data, the set to false
+      /// if no data, the set to false, NEVER NULL
       final bool pref = data.getBool('isFav$id') ?? false;
 
       _isFav = pref;
@@ -37,28 +37,32 @@ class FavoriteProvider extends ChangeNotifier {
       notifyListeners();
       return pref;
     } catch (e) {
-      _currentState = FavoriteState.error;
-      notifyListeners();
-      return _message = 'Error getting favorite data';
+      _currentState = FavoriteState.noData;
+      return _message = 'Error getting favorite data, setting it to false';
     }
   }
 
   /// toggle favPref on or off from icon press
   void toggleFavPref() async {
-    _currentState = FavoriteState.loading;
-    final SharedPreferences data = await SharedPreferences.getInstance();
-    final bool isFavValue = data.getBool('isFav$resId') ?? false;
+    try {
+      final SharedPreferences data = await SharedPreferences.getInstance();
+      final bool isFavValue = data.getBool('isFav$resId') ?? false;
 
-    /// data in here is always either true or false, never null because ?? false
-    if (isFavValue == false) {
-      data.setBool('isFav$resId', true);
-      _isFav = true;
-      _currentState = FavoriteState.hasData;
-      notifyListeners();
-    } else {
-      data.setBool('isFav$resId', false);
-      _isFav = false;
-      _currentState = FavoriteState.noData;
+      /// data in here is always either true or false, never null because ?? false
+      if (isFavValue == false) {
+        data.setBool('isFav$resId', true);
+        _isFav = true;
+        _currentState = FavoriteState.hasData;
+        notifyListeners();
+      } else {
+        data.setBool('isFav$resId', false);
+        _isFav = false;
+        _currentState = FavoriteState.hasData;
+        notifyListeners();
+      }
+    } catch (e) {
+      _message = 'Error toggling favorite';
+      _currentState = FavoriteState.error;
       notifyListeners();
     }
   }

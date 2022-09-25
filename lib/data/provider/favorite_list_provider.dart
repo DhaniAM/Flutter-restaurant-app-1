@@ -14,41 +14,44 @@ class FavoriteListProvider extends ChangeNotifier {
     _setRestaurantsList();
   }
   late String _message;
-  late GetFavoriteState _currentState;
-  late List<Restaurants> _favoriteRestaurants = <Restaurants>[];
+  late FavoriteListState _currentState;
+  final List<Restaurants> _favoriteRestaurants = <Restaurants>[];
 
   /// Getter
-  GetFavoriteState get currentState => _currentState;
+  FavoriteListState get currentState => _currentState;
   List<Restaurants> get favoriteRestaurants => _favoriteRestaurants;
   String get message => _message;
 
-  set setCurrentState(GetFavoriteState state) => _currentState = state;
+  set setCurrentState(FavoriteListState state) => _currentState = state;
 
   void _setRestaurantsList() async {
     try {
-      _currentState = GetFavoriteState.loading;
+      _currentState = FavoriteListState.loading;
       notifyListeners();
       final restaurantsList = await ApiService().getRestaurantsList();
       final int resLen = restaurantsList.restaurants.length;
+
       for (int i = 0; i < resLen; i++) {
         final restaurants = restaurantsList.restaurants[i];
         final String resId = restaurants.id;
-        final data = FavoriteProvider(resId: resId);
+        final data = await FavoriteProvider(resId: resId);
         final bool isFav = data.isFav;
         if (isFav) {
           _favoriteRestaurants.add(restaurants);
         }
       }
+
       if (_favoriteRestaurants.isEmpty) {
-        _currentState = GetFavoriteState.noData;
+        _currentState = FavoriteListState.noData;
         _message = 'No favorite';
         notifyListeners();
-      } else {
-        _currentState = GetFavoriteState.hasData;
+      } else if (_favoriteRestaurants.isNotEmpty) {
+        _currentState = FavoriteListState.hasData;
+        _message = 'has Data';
         notifyListeners();
       }
     } catch (e) {
-      _currentState = GetFavoriteState.error;
+      _currentState = FavoriteListState.error;
       notifyListeners();
       _message = 'Error getting restaurants list';
     }
