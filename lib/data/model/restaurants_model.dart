@@ -1,16 +1,11 @@
 import 'dart:convert';
 
 /// class for restaurant list in [HomeScreen] and [SearchScreen]
-RestaurantsList restaurantsDataFromJson(String str) =>
-    RestaurantsList.fromJson(json.decode(str));
+RestaurantsList restaurantsDataFromJson(String str) => RestaurantsList.fromJson(json.decode(str));
 
 class RestaurantsList {
   RestaurantsList(
-      {required this.error,
-      this.message,
-      this.count,
-      required this.restaurants,
-      this.founded});
+      {required this.error, this.message, this.count, required this.restaurants, this.founded});
 
   bool error;
   int? count;
@@ -24,8 +19,8 @@ class RestaurantsList {
       return RestaurantsList(
         error: json["error"],
         founded: json["founded"],
-        restaurants: List<Restaurants>.from(
-            json["restaurants"].map((x) => Restaurants.fromJson(x))),
+        restaurants:
+            List<Restaurants>.from(json["restaurants"].map((x) => Restaurants.fromJson(x))),
       );
 
       /// for [HomeScreen] result
@@ -34,8 +29,8 @@ class RestaurantsList {
         error: json["error"],
         message: json["message"],
         count: json["count"],
-        restaurants: List<Restaurants>.from(
-            json["restaurants"].map((x) => Restaurants.fromJson(x))),
+        restaurants:
+            List<Restaurants>.from(json["restaurants"].map((x) => Restaurants.fromJson(x))),
       );
     } else {
       throw Exception("Error loading API");
@@ -69,4 +64,13 @@ class Restaurants {
         city: json["city"],
         rating: json["rating"].toDouble(),
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "pictureId": pictureId,
+        "city": city,
+        "rating": rating,
+      };
 }
