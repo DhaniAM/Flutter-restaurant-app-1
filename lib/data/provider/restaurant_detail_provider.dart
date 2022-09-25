@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
-
-enum RestoCurrentState { init, loading, noData, hasData, error }
+import 'package:restaurant_app_1/data/state/current_state.dart';
 
 /// For each restaurant
 /// When this object created, _getRestaurantDetail called
@@ -15,33 +14,32 @@ class RestaurantDetailProvider extends ChangeNotifier {
   }
 
   late RestaurantDetail _restaurantDetail;
-  late RestoCurrentState _currentState;
+  late RestoDetailState _currentState;
   String _message = "";
   final String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
 
   /// Getter
   RestaurantDetail get restaurantDetail => _restaurantDetail;
-  RestoCurrentState get currentState => _currentState;
+  RestoDetailState get currentState => _currentState;
   String get message => _message;
 
   Future _getRestaurantsDetail(String restaurantId) async {
     try {
-      _currentState = RestoCurrentState.loading;
+      _currentState = RestoDetailState.loading;
       notifyListeners();
-      final RestaurantDetail restaurant =
-          await apiService.getRestaurantDetail(restaurantId);
+      final RestaurantDetail restaurant = await apiService.getRestaurantDetail(restaurantId);
 
       if (restaurant.message != "success") {
-        _currentState = RestoCurrentState.noData;
+        _currentState = RestoDetailState.noData;
         notifyListeners();
         return _message = "No Data, Fetching Data Failed";
       } else {
-        _currentState = RestoCurrentState.hasData;
+        _currentState = RestoDetailState.hasData;
         notifyListeners();
         return _restaurantDetail = restaurant;
       }
     } catch (e) {
-      _currentState = RestoCurrentState.error;
+      _currentState = RestoDetailState.error;
       notifyListeners();
       return _message = "Error loading data";
     }

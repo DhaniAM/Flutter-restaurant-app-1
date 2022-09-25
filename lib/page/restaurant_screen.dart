@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
+import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
@@ -32,8 +33,8 @@ class RestaurantScreen extends StatelessWidget {
       child: Consumer2<RestaurantDetailProvider, FavoriteProvider>(
         builder: (context, resData, favData, child) {
           /// if Init or Loading state
-          if (resData.currentState == RestoCurrentState.init ||
-              resData.currentState == RestoCurrentState.loading) {
+          if (resData.currentState == RestoDetailState.init ||
+              resData.currentState == RestoDetailState.loading) {
             return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
@@ -41,11 +42,11 @@ class RestaurantScreen extends StatelessWidget {
             );
 
             /// No Data state
-          } else if (resData.currentState == RestoCurrentState.noData) {
+          } else if (resData.currentState == RestoDetailState.noData) {
             return Scaffold(body: StateMessage(icon: Icons.fastfood, text: resData.message));
 
             /// Error state
-          } else if (resData.currentState == RestoCurrentState.error) {
+          } else if (resData.currentState == RestoDetailState.error) {
             return Scaffold(body: StateMessage(icon: Icons.cancel_rounded, text: resData.message));
 
             /// HasData state

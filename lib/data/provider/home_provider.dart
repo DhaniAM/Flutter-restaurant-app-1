@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
-
-enum HomeCurrentState { loading, noData, hasData, error }
+import 'package:restaurant_app_1/data/state/current_state.dart';
 
 class HomeProvider extends ChangeNotifier {
   final ApiService apiService;

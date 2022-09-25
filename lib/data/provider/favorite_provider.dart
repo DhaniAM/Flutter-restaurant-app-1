@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-enum FavoriteState { loading, hasData }
 
 class FavoriteProvider extends ChangeNotifier {
   /// to get

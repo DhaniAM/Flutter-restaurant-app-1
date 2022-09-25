@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
-
-enum SearchCurrentState { init, loading, noData, hasData, error }
+import 'package:restaurant_app_1/data/state/current_state.dart';
 
 class SearchProvider extends ChangeNotifier {
   ApiService apiService;
@@ -37,8 +36,7 @@ class SearchProvider extends ChangeNotifier {
     try {
       _searchCurrentState = SearchCurrentState.loading;
       notifyListeners();
-      RestaurantsList restaurantsList =
-          await apiService.getSearchResults(searchText);
+      RestaurantsList restaurantsList = await apiService.getSearchResults(searchText);
       if (restaurantsList.restaurants.isEmpty) {
         _searchCurrentState = SearchCurrentState.noData;
         notifyListeners();
