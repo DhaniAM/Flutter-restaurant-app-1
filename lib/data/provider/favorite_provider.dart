@@ -10,7 +10,6 @@ class FavoriteProvider extends ChangeNotifier {
 
   late bool _isFav;
   late FavoriteState _currentState;
-  String _message = 'No error';
 
   /// Getter
   bool get isFav => _isFav;
@@ -38,7 +37,7 @@ class FavoriteProvider extends ChangeNotifier {
       return pref;
     } catch (e) {
       _currentState = FavoriteState.noData;
-      return _message = 'Error getting favorite data, setting it to false';
+      notifyListeners();
     }
   }
 
@@ -61,7 +60,6 @@ class FavoriteProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      _message = 'Error toggling favorite';
       _currentState = FavoriteState.error;
       notifyListeners();
     }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
-import 'package:restaurant_app_1/data/state/current_state.dart';
 
 class FavoriteIcon extends StatelessWidget {
   final String resId;

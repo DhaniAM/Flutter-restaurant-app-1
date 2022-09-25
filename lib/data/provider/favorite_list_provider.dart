@@ -34,7 +34,7 @@ class FavoriteListProvider extends ChangeNotifier {
       for (int i = 0; i < resLen; i++) {
         final restaurants = restaurantsList.restaurants[i];
         final String resId = restaurants.id;
-        final data = await FavoriteProvider(resId: resId);
+        final data = FavoriteProvider(resId: resId);
         final bool isFav = data.isFav;
         if (isFav) {
           _favoriteRestaurants.add(restaurants);

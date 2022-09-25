@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Local Restaurant",
+      theme: ThemeData(
+        primaryColor: const Color.fromRGBO(255, 106, 106, 1),
+        splashColor: Color.fromRGBO(67, 218, 239, 1),
+      ),
       initialRoute: "/",
       routes: {
         "/": (context) => const MainScreen(),
