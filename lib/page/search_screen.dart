@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/provider/search_provider.dart';
-import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
+import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -58,8 +58,7 @@ class SearchScreen extends StatelessWidget {
             /// if not in [searchState], hide search button or if input is empty
             Consumer<SearchProvider>(
               builder: (context, SearchProvider data, child) {
-                return (data.searchState == false ||
-                        data.controller.text.isEmpty)
+                return (data.searchState == false || data.controller.text.isEmpty)
                     ? const SizedBox()
                     : IconButton(
                         icon: const Icon(Icons.search_rounded),
@@ -87,8 +86,7 @@ class SearchScreen extends StatelessWidget {
             /// Init state
             if (data.currentState == SearchCurrentState.loading) {
               return const Center(
-                child: CircularProgressIndicator(
-                    color: Color.fromRGBO(255, 106, 106, 1)),
+                child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
               );
 
               /// No Data State
@@ -97,13 +95,11 @@ class SearchScreen extends StatelessWidget {
 
               /// Error Data State
             } else if (data.currentState == SearchCurrentState.error) {
-              return StateMessage(
-                  icon: Icons.cancel_rounded, text: data.message);
+              return StateMessage(icon: Icons.cancel_rounded, text: data.message);
 
               /// Has Data State
             } else if (data.currentState == SearchCurrentState.hasData) {
-              return RestaurantListResult(
-                  restaurantsList: data.restaurantsList);
+              return RestaurantsListBuilder(restaurantsList: data.restaurantsList);
 
               /// Default State
             } else {

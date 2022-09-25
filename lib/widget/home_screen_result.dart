@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
-import 'package:restaurant_app_1/widget/restaurants_list_result.dart';
+import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
 
 class HomeScreenResult extends StatelessWidget {
@@ -14,8 +14,7 @@ class HomeScreenResult extends StatelessWidget {
         /// Loading state
         if (data.currentState == HomeCurrentState.loading) {
           return const Center(
-            child: CircularProgressIndicator(
-                color: Color.fromRGBO(255, 106, 106, 1)),
+            child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
           );
 
           /// No Data state
@@ -28,7 +27,7 @@ class HomeScreenResult extends StatelessWidget {
 
           /// hasData state
         } else if (data.currentState == HomeCurrentState.hasData) {
-          return RestaurantListResult(restaurantsList: data.restaurantsList);
+          return RestaurantsListBuilder(restaurantsList: data.restaurantsList);
 
           /// state when the Screen start
         } else {
