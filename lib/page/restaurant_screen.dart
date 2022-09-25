@@ -21,8 +21,7 @@ class RestaurantScreen extends StatelessWidget {
     return MultiProvider(
       providers: <ListenableProvider>[
         ListenableProvider<RestaurantDetailProvider>(
-          create: (context) =>
-              RestaurantDetailProvider(apiService: ApiService(), resId: id),
+          create: (context) => RestaurantDetailProvider(apiService: ApiService(), resId: id),
         ),
         ListenableProvider<FavoriteProvider>(
           create: (context) => FavoriteProvider(),
@@ -37,22 +36,17 @@ class RestaurantScreen extends StatelessWidget {
               resData.currentState == RestoCurrentState.loading) {
             return const Scaffold(
               body: Center(
-                child: CircularProgressIndicator(
-                    color: Color.fromRGBO(255, 106, 106, 1)),
+                child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
               ),
             );
 
             /// No Data state
           } else if (resData.currentState == RestoCurrentState.noData) {
-            return Scaffold(
-                body:
-                    StateMessage(icon: Icons.fastfood, text: resData.message));
+            return Scaffold(body: StateMessage(icon: Icons.fastfood, text: resData.message));
 
             /// Error state
           } else if (resData.currentState == RestoCurrentState.error) {
-            return Scaffold(
-                body: StateMessage(
-                    icon: Icons.cancel_rounded, text: resData.message));
+            return Scaffold(body: StateMessage(icon: Icons.cancel_rounded, text: resData.message));
 
             /// HasData state
           } else {
@@ -95,8 +89,7 @@ class RestaurantScreen extends StatelessWidget {
                           if (loadingProgress == null) return child;
 
                           /// While still loading
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         },
                         errorBuilder: (context, error, stackTrace) {
                           return const SizedBox(
@@ -141,8 +134,7 @@ class RestaurantScreen extends StatelessWidget {
                                     Text(
                                       restaurant.address,
                                       textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                          fontSize: 12, height: 1.5),
+                                      style: const TextStyle(fontSize: 12, height: 1.5),
                                     ),
                                   ],
                                 ),
@@ -202,13 +194,10 @@ class RestaurantScreen extends StatelessWidget {
                                   child: Chip(
                                     label: Text(
                                       restaurant.categories[i].name,
-                                      style:
-                                          const TextStyle(color: Colors.white),
+                                      style: const TextStyle(color: Colors.white),
                                     ),
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20),
-                                    backgroundColor:
-                                        const Color.fromRGBO(255, 139, 139, 1),
+                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                    backgroundColor: const Color.fromRGBO(255, 139, 139, 1),
                                   ),
                                 ),
                             ],
@@ -256,8 +245,7 @@ class RestaurantScreen extends StatelessWidget {
                               runSpacing: 5,
                               children: <Widget>[
                                 for (int i = 0; i < resFoodsLen; i++)
-                                  MenuItemName(
-                                      itemName: restaurant.menus.foods[i].name),
+                                  MenuItemName(itemName: restaurant.menus.foods[i].name),
                               ],
                             ),
                           ),
@@ -285,9 +273,7 @@ class RestaurantScreen extends StatelessWidget {
                               runSpacing: 5,
                               children: <Widget>[
                                 for (int i = 0; i < resDrinksLen; i++)
-                                  MenuItemName(
-                                      itemName:
-                                          restaurant.menus.drinks[i].name),
+                                  MenuItemName(itemName: restaurant.menus.drinks[i].name),
                               ],
                             ),
                           ),
@@ -303,12 +289,9 @@ class RestaurantScreen extends StatelessWidget {
                                     Icons.reviews_rounded,
                                     color: Colors.pink,
                                   ),
-                                  title: Text(
-                                      restaurant.customerReviews[i].review),
-                                  subtitle:
-                                      Text(restaurant.customerReviews[i].name),
-                                  trailing:
-                                      Text(restaurant.customerReviews[i].date),
+                                  title: Text(restaurant.customerReviews[i].review),
+                                  subtitle: Text(restaurant.customerReviews[i].name),
+                                  trailing: Text(restaurant.customerReviews[i].date),
                                 ),
                             ],
                           ),

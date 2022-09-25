@@ -4,8 +4,8 @@ import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
 
-class HomeScreenResult extends StatelessWidget {
-  const HomeScreenResult({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

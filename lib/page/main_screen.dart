@@ -4,8 +4,8 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
-import 'package:restaurant_app_1/widget/favorite_list_result.dart';
-import 'package:restaurant_app_1/widget/home_screen_result.dart';
+import 'package:restaurant_app_1/page/favorite_screen.dart';
+import 'package:restaurant_app_1/page/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -19,8 +19,8 @@ class _MainScreenState extends State<MainScreen> {
   int _currentTabIndex = 0;
 
   List<Widget> widgetToBuild = const <Widget>[
-    HomeScreenResult(),
-    FavoriteListResult(),
+    HomeScreen(),
+    FavoriteScreen(),
   ];
   @override
   Widget build(BuildContext context) {

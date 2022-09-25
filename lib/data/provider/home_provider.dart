@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 
-enum HomeCurrentState { init, loading, noData, hasData, error }
+enum HomeCurrentState { loading, noData, hasData, error }
 
 class HomeProvider extends ChangeNotifier {
   final ApiService apiService;
@@ -32,8 +32,7 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
 
       /// get the API data
-      final RestaurantsList restaurantsList =
-          await apiService.getRestaurantsList();
+      final RestaurantsList restaurantsList = await apiService.getRestaurantsList();
 
       /// if there is NO DATA or if the API can't get the Data
       if (restaurantsList.restaurants.isEmpty) {

@@ -8,38 +8,16 @@ class FavoriteProvider extends ChangeNotifier {
   /// /// CHANGE THIS LATER
   bool? _isFav;
   late FavoriteState _currentState;
+  late String _message;
 
   /// Getter
   bool? get isFav => _isFav;
   FavoriteState get currentState => _currentState;
 
+  /// Setter
   set setIsFav(bool value) {
     _isFav = value;
     notifyListeners();
-  }
-
-  /// set init value for favPrefs,
-  /// not for init SharedPreferences value
-  void _setFavPref(String id) async {
-    _currentState = FavoriteState.loading;
-
-    /// get SharedPreferences from local storage
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    /// get SharedPreferences data, if null set bool data to false (not
-    /// the SharedPreferences)
-    bool data = prefs.getBool('isFav$id') ?? false;
-
-    /// data in here is always either true or false, never null because ?? false
-    if (data == false) {
-      _isFav = false;
-      _currentState = FavoriteState.hasData;
-      notifyListeners();
-    } else {
-      _isFav = true;
-      _currentState = FavoriteState.hasData;
-      notifyListeners();
-    }
   }
 
   Future isFavPref(String id) async {
@@ -50,7 +28,7 @@ class FavoriteProvider extends ChangeNotifier {
       _currentState = FavoriteState.hasData;
       return pref;
     } catch (e) {
-      return e;
+      return _message = 'Error no data -_-';
     }
   }
 

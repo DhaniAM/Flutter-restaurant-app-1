@@ -7,8 +7,8 @@ import 'package:restaurant_app_1/widget/favorite_list_builder.dart';
 import 'package:restaurant_app_1/widget/restaurant_card.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 
-class FavoriteListResult extends StatelessWidget {
-  const FavoriteListResult({super.key});
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
