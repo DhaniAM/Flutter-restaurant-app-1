@@ -19,20 +19,21 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentTabIndex = 0;
 
-  List<Widget> widgetToBuild = const <Widget>[
-    HomeScreen(),
-    FavoriteScreen(),
-  ];
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgetToBuild = const <Widget>[
+      HomeScreen(),
+      FavoriteScreen(),
+    ];
+
     /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
     /// can use the state
     return MultiProvider(
       providers: [
-        ListenableProvider(
+        ChangeNotifierProvider(
           create: (context) => HomeProvider(apiService: ApiService()),
         ),
-        ListenableProvider(
+        ChangeNotifierProvider(
           create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
       ],

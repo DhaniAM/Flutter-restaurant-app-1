@@ -23,10 +23,10 @@ class RestaurantScreen extends StatelessWidget {
     /// MultiProvider used to use multiple consumer
     return MultiProvider(
       providers: <ListenableProvider>[
-        ListenableProvider<RestaurantDetailProvider>(
+        ChangeNotifierProvider<RestaurantDetailProvider>(
           create: (context) => RestaurantDetailProvider(apiService: ApiService(), resId: resId),
         ),
-        ListenableProvider<DatabaseProvider>(
+        ChangeNotifierProvider<DatabaseProvider>(
           create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
       ],

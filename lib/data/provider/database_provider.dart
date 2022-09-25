@@ -46,6 +46,7 @@ class DatabaseProvider extends ChangeNotifier {
     } catch (e) {
       _currentState = DatabaseState.error;
       _message = "Error, can't add favorite";
+
       notifyListeners();
     }
   }

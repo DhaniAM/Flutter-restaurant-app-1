@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
+import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
 
 /// Each Restaurant in [HomeScreen] and [SearchScreen]
@@ -21,8 +23,7 @@ class RestaurantCard extends StatelessWidget {
       /// the [RestaurantDetail] on [RestaurantScreen]
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, RestaurantScreen.routeName,
-              arguments: restaurants.id);
+          Navigator.pushNamed(context, RestaurantScreen.routeName, arguments: restaurants.id);
         },
 
         /// Card Decoration
@@ -59,17 +60,14 @@ class RestaurantCard extends StatelessWidget {
 
                       /// While still loading
                       return const Center(
-                          child: CircularProgressIndicator(
-                              color: Color.fromRGBO(255, 106, 106, 1)));
+                          child:
+                              CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)));
                     },
 
                     /// When error
                     errorBuilder: (context, error, stackTrace) {
                       return Column(
-                        children: const <Widget>[
-                          Icon(Icons.warning_rounded),
-                          Text("Img Error")
-                        ],
+                        children: const <Widget>[Icon(Icons.warning_rounded), Text("Img Error")],
                       );
                     },
                   ),
@@ -90,16 +88,40 @@ class RestaurantCard extends StatelessWidget {
             ),
 
             /// Restaurant Rating
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Icon(
-                  Icons.star_rounded,
-                  color: Colors.yellow,
-                ),
-                Text(
-                  restaurants.rating.toString(),
-                  style: const TextStyle(color: Colors.white),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Icon(
+                      Icons.star_rounded,
+                      color: Colors.yellow,
+                    ),
+                    Text(
+                      restaurants.rating.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Consumer<DatabaseProvider>(
+                      builder: (context, value, child) {
+                        return FutureBuilder(
+                          future: value.isBookmarked(restaurants.id),
+                          builder: (context, snapshot) {
+                            bool isBookmarked = snapshot.data ?? false;
+                            if (isBookmarked) {
+                              return const Icon(
+                                Icons.favorite,
+                                color: Colors.pink,
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
