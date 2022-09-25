@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
-import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/widget/favorite_icon.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
@@ -11,7 +10,7 @@ class RestaurantDetailBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
+    const String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
     final Restaurant restaurant = resData.restaurant;
     final int resFoodsLen = restaurant.menus.foods.length;
     final int resDrinksLen = restaurant.menus.drinks.length;

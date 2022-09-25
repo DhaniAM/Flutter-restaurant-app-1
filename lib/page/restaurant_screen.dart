@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/restaurant_detail_builder.dart';
@@ -13,8 +12,6 @@ class RestaurantScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resId = ModalRoute.of(context)!.settings.arguments as String;
-
     return Consumer<RestaurantDetailProvider>(
       builder: (context, data, child) {
         /// Loading state
