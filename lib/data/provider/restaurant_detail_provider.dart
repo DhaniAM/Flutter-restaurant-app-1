@@ -6,6 +6,7 @@ import 'package:restaurant_app_1/data/state/current_state.dart';
 /// For each restaurant
 /// When this object created, _getRestaurantDetail called
 /// and the field get its data and then we use it
+/// can only be used from Consumer or Provider.of
 class RestaurantDetailProvider extends ChangeNotifier {
   ApiService apiService;
   String resId;

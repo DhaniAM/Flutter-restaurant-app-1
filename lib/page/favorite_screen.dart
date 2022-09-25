@@ -18,17 +18,17 @@ class FavoriteScreen extends StatelessWidget {
             child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
           );
 
+          /// hasData state
+        } else if (data.currentState == FavoriteListState.hasData) {
+          return FavoriteListBuilder(restaurantsList: data.favoriteRestaurants);
+
           /// No Data state
         } else if (data.currentState == FavoriteListState.noData) {
           return StateMessage(icon: Icons.heart_broken, text: data.message);
 
           /// Error state
-        } else if (data.currentState == FavoriteListState.error) {
-          return StateMessage(icon: Icons.cancel_rounded, text: data.message);
-
-          /// hasData state
         } else {
-          return FavoriteListBuilder(restaurantsList: data.favoriteRestaurants);
+          return StateMessage(icon: Icons.cancel_rounded, text: data.message);
         }
       },
     );

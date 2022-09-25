@@ -4,7 +4,7 @@ import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 
-/// for Favorite Screen
+/// can only be used from Consumer or Provider.of
 class FavoriteListProvider extends ChangeNotifier {
   // get all restaurants list,
   // get all restaurants id
@@ -22,8 +22,6 @@ class FavoriteListProvider extends ChangeNotifier {
   List<Restaurants> get favoriteRestaurants => _favoriteRestaurants;
   String get message => _message;
 
-  set setCurrentState(FavoriteListState state) => _currentState = state;
-
   void _setRestaurantsList() async {
     try {
       _currentState = FavoriteListState.loading;
@@ -34,8 +32,10 @@ class FavoriteListProvider extends ChangeNotifier {
       for (int i = 0; i < resLen; i++) {
         final restaurants = restaurantsList.restaurants[i];
         final String resId = restaurants.id;
-        final data = FavoriteProvider(resId: resId);
-        final bool isFav = data.isFav;
+
+        final FavoriteProvider data = await FavoriteProvider(resId: resId);
+        final isFav = data.isFav;
+        // final bool isFav = data.isFav;
         if (isFav) {
           _favoriteRestaurants.add(restaurants);
         }
@@ -53,7 +53,7 @@ class FavoriteListProvider extends ChangeNotifier {
     } catch (e) {
       _currentState = FavoriteListState.error;
       notifyListeners();
-      _message = 'Error getting restaurants list';
+      _message = 'Error getting restaurants list \n $e';
     }
   }
 }

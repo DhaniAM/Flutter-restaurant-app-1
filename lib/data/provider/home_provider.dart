@@ -3,6 +3,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 
+/// can only be used from Consumer or Provider.of
 class HomeProvider extends ChangeNotifier {
   final ApiService apiService;
   HomeProvider({required this.apiService}) {
