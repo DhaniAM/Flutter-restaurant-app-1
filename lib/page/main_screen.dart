@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_1/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app_1/page/favorite_screen.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
+import 'package:restaurant_app_1/page/setting_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -16,9 +19,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgetToBuild = const <Widget>[
-      HomeScreen(),
-      FavoriteScreen(),
+    List<Widget> widgetToBuild = <Widget>[
+      const HomeScreen(),
+      const FavoriteScreen(),
     ];
 
     /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we

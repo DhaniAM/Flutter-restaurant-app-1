@@ -5,6 +5,7 @@ import 'package:restaurant_app_1/data/db/database_helper.dart';
 import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
+import 'package:restaurant_app_1/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app_1/data/provider/search_provider.dart';
 import 'package:restaurant_app_1/page/main_screen.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
@@ -21,20 +22,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<HomeProvider>(
           create: (context) => HomeProvider(apiService: ApiService()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<DatabaseProvider>(
           create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<SearchProvider>(
           create: (context) => SearchProvider(apiService: ApiService()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<RestaurantDetailProvider>(
           create: (context) => RestaurantDetailProvider(apiService: ApiService()),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<DatabaseProvider>(
           create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+        ),
+        ChangeNotifierProvider<SchedulingProvider>(
+          create: (context) => SchedulingProvider(),
         ),
       ],
       child: MaterialApp(
