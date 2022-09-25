@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
-import 'package:restaurant_app_1/data/provider/get_favorite_provider.dart';
+import 'package:restaurant_app_1/data/provider/favorite_list_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/page/favorite_screen.dart';
@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
           create: (context) => HomeProvider(apiService: ApiService()),
         ),
         ListenableProvider(
-          create: (context) => GetFavoriteProvider(),
+          create: (context) => FavoriteListProvider(),
         ),
       ],
       child: Scaffold(

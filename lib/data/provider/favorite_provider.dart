@@ -3,14 +3,17 @@ import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteProvider extends ChangeNotifier {
-  /// to get
-  /// /// CHANGE THIS LATER
-  bool? _isFav;
+  final String resId;
+  FavoriteProvider({required this.resId}) {
+    _isFavPref(resId);
+  }
+
+  late bool _isFav;
   late FavoriteState _currentState;
   late String _message;
 
   /// Getter
-  bool? get isFav => _isFav;
+  bool get isFav => _isFav;
   FavoriteState get currentState => _currentState;
 
   /// Setter
@@ -19,34 +22,43 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future isFavPref(String id) async {
+  Future _isFavPref(String id) async {
     try {
       _currentState = FavoriteState.loading;
+      notifyListeners();
+
       final SharedPreferences data = await SharedPreferences.getInstance();
+
+      /// if no data, the set to false
       final bool pref = data.getBool('isFav$id') ?? false;
+
+      _isFav = pref;
       _currentState = FavoriteState.hasData;
+      notifyListeners();
       return pref;
     } catch (e) {
-      return _message = 'Error no data -_-';
+      _currentState = FavoriteState.error;
+      notifyListeners();
+      return _message = 'Error getting favorite data';
     }
   }
 
   /// toggle favPref on or off from icon press
-  void toggleFavPref(String id) async {
+  void toggleFavPref() async {
     _currentState = FavoriteState.loading;
     final SharedPreferences data = await SharedPreferences.getInstance();
-    final bool isFavValue = data.getBool('isFav$id') ?? false;
+    final bool isFavValue = data.getBool('isFav$resId') ?? false;
 
     /// data in here is always either true or false, never null because ?? false
     if (isFavValue == false) {
-      data.setBool('isFav$id', true);
+      data.setBool('isFav$resId', true);
       _isFav = true;
       _currentState = FavoriteState.hasData;
       notifyListeners();
     } else {
-      data.setBool('isFav$id', false);
+      data.setBool('isFav$resId', false);
       _isFav = false;
-      _currentState = FavoriteState.hasData;
+      _currentState = FavoriteState.noData;
       notifyListeners();
     }
   }

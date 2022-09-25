@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_1/data/provider/get_favorite_provider.dart';
+import 'package:restaurant_app_1/data/provider/favorite_list_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/favorite_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
@@ -10,7 +10,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetFavoriteProvider>(
+    return Consumer<FavoriteListProvider>(
       builder: (context, data, child) {
         /// Loading state
         if (data.currentState == GetFavoriteState.loading) {

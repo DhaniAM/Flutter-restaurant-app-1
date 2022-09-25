@@ -4,6 +4,6 @@ enum RestoDetailState { init, loading, noData, hasData, error }
 
 enum SearchCurrentState { init, loading, noData, hasData, error }
 
-enum FavoriteState { loading, hasData }
+enum FavoriteState { loading, noData, hasData, error }
 
-enum GetFavoriteState { loading, hasData, noData, error }
+enum GetFavoriteState { init, loading, hasData, noData, error }

@@ -5,6 +5,7 @@ import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
+import 'package:restaurant_app_1/widget/favorite_icon.dart';
 import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
@@ -16,16 +17,16 @@ class RestaurantScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final id = ModalRoute.of(context)!.settings.arguments as String;
+    final resId = ModalRoute.of(context)!.settings.arguments as String;
 
     /// MultiProvider used to use multiple consumer
     return MultiProvider(
       providers: <ListenableProvider>[
         ListenableProvider<RestaurantDetailProvider>(
-          create: (context) => RestaurantDetailProvider(apiService: ApiService(), resId: id),
+          create: (context) => RestaurantDetailProvider(apiService: ApiService(), resId: resId),
         ),
         ListenableProvider<FavoriteProvider>(
-          create: (context) => FavoriteProvider(),
+          create: (context) => FavoriteProvider(resId: resId),
         ),
       ],
 
@@ -56,18 +57,6 @@ class RestaurantScreen extends StatelessWidget {
             final int resDrinksLen = restaurant.menus.drinks.length;
             final int tagLen = restaurant.categories.length;
             final int reviewLen = restaurant.customerReviews.length;
-
-            /// getting is favorite for each restaurant
-            favData.isFavPref(resData.resId).then((value) => {
-                  if (value == true)
-                    {
-                      favData.setIsFav = true,
-                    }
-                  else
-                    {
-                      favData.setIsFav = false,
-                    }
-                });
 
             return Scaffold(
               /// App Bar Ttitle
@@ -160,25 +149,7 @@ class RestaurantScreen extends StatelessWidget {
                               /// Favorite Icon
                               Flexible(
                                 flex: 1,
-                                child: (favData.isFav == true)
-                                    ? IconButton(
-                                        onPressed: () {
-                                          favData.toggleFavPref(resData.resId);
-                                        },
-                                        icon: const Icon(
-                                          Icons.favorite,
-                                          color: Colors.pink,
-                                        ),
-                                      )
-                                    : IconButton(
-                                        onPressed: () {
-                                          favData.toggleFavPref(resData.resId);
-                                        },
-                                        icon: const Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
+                                child: FavoriteIcon(resId: resId),
                               ),
                             ],
                           ),
