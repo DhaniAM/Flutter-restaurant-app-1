@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/db/database_helper.dart';
 import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
+import 'package:restaurant_app_1/page/favorite_screen.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
 
@@ -20,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> widgetToBuild = const <Widget>[
     HomeScreen(),
-    // FavoriteScreen(),
+    FavoriteScreen(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -20,6 +20,8 @@ class DatabaseProvider extends ChangeNotifier {
 
   /// get bookmark
   void _getBookmarks() async {
+    _currentState = DatabaseState.loading;
+    notifyListeners();
     _bookmarks = await databaseHelper.getBookmarks();
     if (_bookmarks.isNotEmpty) {
       _currentState = DatabaseState.hasData;
