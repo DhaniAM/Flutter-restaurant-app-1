@@ -12,6 +12,7 @@ import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app_1/data/provider/search_provider.dart';
+import 'package:restaurant_app_1/page/home_screen.dart';
 import 'package:restaurant_app_1/page/main_screen.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
@@ -22,7 +23,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized();
 
   final NotificationHelper _notificationHelper = NotificationHelper();
   final BackgroundService _service = BackgroundService();
@@ -71,9 +72,9 @@ class MyApp extends StatelessWidget {
           splashColor: const Color.fromRGBO(67, 218, 239, 1),
         ),
         navigatorKey: navigatorKey,
-        initialRoute: "/",
+        initialRoute: HomeScreen.routeName,
         routes: {
-          "/": (context) => const MainScreen(),
+          HomeScreen.routeName: (context) => const MainScreen(),
           RestaurantScreen.routeName: (context) => const RestaurantScreen(),
           SearchScreen.routeName: (context) => const SearchScreen(),
         },

@@ -56,8 +56,8 @@ class _MainScreenState extends State<MainScreen> {
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
-                Navigation.intentWithoutData(SearchScreen.routeName);
-                // Navigator.pushNamed(context, SearchScreen.routeName);
+                // Navigation.intentWithoutData(SearchScreen.routeName);
+                Navigator.pushNamed(context, SearchScreen.routeName);
               },
               child: const Icon(
                 Icons.search_rounded,

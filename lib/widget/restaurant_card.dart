@@ -118,9 +118,12 @@ class RestaurantCard extends StatelessWidget {
                               builder: (context, snapshot) {
                                 bool isBookmarked = snapshot.data ?? false;
                                 if (isBookmarked) {
-                                  return const Icon(
-                                    Icons.favorite,
-                                    color: Colors.pink,
+                                  return const Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: Colors.pink,
+                                    ),
                                   );
                                 } else {
                                   return const SizedBox();

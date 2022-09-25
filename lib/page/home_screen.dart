@@ -6,6 +6,7 @@ import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routeName = '/';
   const HomeScreen({super.key});
 
   @override
