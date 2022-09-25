@@ -86,6 +86,10 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.favorite_sharp),
             label: 'Favorite',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Setting',
+          ),
         ],
       ),
     );
