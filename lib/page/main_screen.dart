@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/provider/scheduling_provider.dart';
 import 'package:restaurant_app_1/page/favorite_screen.dart';
+import 'package:restaurant_app_1/page/restaurant_screen.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
 import 'package:restaurant_app_1/page/setting_screen.dart';
+import 'package:restaurant_app_1/utils/notification_helper.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -15,13 +17,27 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final NotificationHelper _notificationHelper = NotificationHelper();
   int _currentTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    @override
+    void initState() {
+      super.initState();
+      _notificationHelper.configureSelectNotificationSubject(RestaurantScreen.routeName);
+    }
+
+    @override
+    void dispose() {
+      selectNotificationSubject.close();
+      super.dispose();
+    }
+
     List<Widget> widgetToBuild = <Widget>[
       const HomeScreen(),
       const FavoriteScreen(),
+      const SettingScreen(),
     ];
 
     /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
