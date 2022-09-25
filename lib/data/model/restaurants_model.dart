@@ -36,6 +36,13 @@ class RestaurantsList {
       throw Exception("Error loading API");
     }
   }
+
+  Map<String, dynamic> toJson() => {
+        "error": error,
+        "message": message,
+        "count": count,
+        "restaurants": List<Restaurants>.from(restaurants.map((x) => x.toJson())),
+      };
 }
 
 /// Overview of Restaurants detail, not so complete compared to [Restaurant] class
