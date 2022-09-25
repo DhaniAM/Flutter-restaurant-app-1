@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
+import 'package:restaurant_app_1/data/db/database_helper.dart';
 import 'package:restaurant_app_1/data/model/restaurant_model.dart';
-import 'package:restaurant_app_1/data/provider/favorite_provider.dart';
+import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/favorite_icon.dart';
@@ -25,14 +26,14 @@ class RestaurantScreen extends StatelessWidget {
         ListenableProvider<RestaurantDetailProvider>(
           create: (context) => RestaurantDetailProvider(apiService: ApiService(), resId: resId),
         ),
-        ListenableProvider<FavoriteProvider>(
-          create: (context) => FavoriteProvider(resId: resId),
+        ListenableProvider<DatabaseProvider>(
+          create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
       ],
 
       /// used Consumer2 because we have 2 consumer to use
-      child: Consumer2<RestaurantDetailProvider, FavoriteProvider>(
-        builder: (context, resData, favData, child) {
+      child: Consumer<RestaurantDetailProvider>(
+        builder: (context, resData, child) {
           /// if Init or Loading state
           if (resData.currentState == RestoDetailState.init ||
               resData.currentState == RestoDetailState.loading) {
@@ -149,7 +150,7 @@ class RestaurantScreen extends StatelessWidget {
                               /// Favorite Icon
                               Flexible(
                                 flex: 1,
-                                child: FavoriteIcon(resId: resId),
+                                child: FavoriteIcon(restaurant: restaurant),
                               ),
                             ],
                           ),

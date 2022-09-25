@@ -18,9 +18,10 @@ class DatabaseProvider extends ChangeNotifier {
   String get message => _message;
   List<Restaurants> get bookmarks => _bookmarks;
 
+  /// get bookmark
   void _getBookmarks() async {
     _bookmarks = await databaseHelper.getBookmarks();
-    if (_bookmarks.length > 0) {
+    if (_bookmarks.isNotEmpty) {
       _currentState = DatabaseState.hasData;
     } else {
       _currentState = DatabaseState.noData;
@@ -29,6 +30,13 @@ class DatabaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// is bookmarked
+  Future<bool> isBookmarked(String id) async {
+    final bookmarked = await databaseHelper.getBookmarkById(id);
+    return bookmarked.isNotEmpty;
+  }
+
+  /// add bookmark
   void addBookmark(Restaurants restaurants) async {
     try {
       await databaseHelper.insertBookmark(restaurants);
@@ -40,11 +48,7 @@ class DatabaseProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> isBookmarked(String id) async {
-    final bookmarked = await databaseHelper.getBookmarkById(id);
-    return bookmarked.isNotEmpty;
-  }
-
+  /// remove
   void removeBookmark(String id) async {
     try {
       await databaseHelper.removeBookmark(id);

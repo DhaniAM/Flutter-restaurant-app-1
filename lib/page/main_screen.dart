@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
-import 'package:restaurant_app_1/data/provider/favorite_list_provider.dart';
+import 'package:restaurant_app_1/data/db/database_helper.dart';
+import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/page/search_screen.dart';
-import 'package:restaurant_app_1/page/favorite_screen.dart';
 import 'package:restaurant_app_1/page/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> widgetToBuild = const <Widget>[
     HomeScreen(),
-    FavoriteScreen(),
+    // FavoriteScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
           create: (context) => HomeProvider(apiService: ApiService()),
         ),
         ListenableProvider(
-          create: (context) => FavoriteListProvider(),
+          create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
       ],
       child: Scaffold(
