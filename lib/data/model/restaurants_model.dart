@@ -1,7 +1,9 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 /// class for restaurant list in [HomeScreen] and [SearchScreen]
 RestaurantsList restaurantsDataFromJson(String str) => RestaurantsList.fromJson(json.decode(str));
+String restaurantsListToJson(RestaurantsList data) => json.encode(data.toJson());
 
 class RestaurantsList {
   RestaurantsList(
@@ -41,7 +43,7 @@ class RestaurantsList {
         "error": error,
         "message": message,
         "count": count,
-        "restaurants": List<Restaurants>.from(restaurants.map((x) => x.toJson())),
+        "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
       };
 }
 
