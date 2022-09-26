@@ -18,8 +18,8 @@ class SettingScreen extends StatelessWidget {
             trailing: Consumer2<SchedulingProvider, PreferencesProvider>(
               builder: (context, scheduled, pref, child) {
                 return Switch.adaptive(
-                  // value: scheduled.isScheduled,
-                  value: pref.isScheduledRestaurant,
+                  value: scheduled.isScheduled,
+                  // value: pref.isScheduledRestaurant,
                   onChanged: (value) async {
                     pref.toggleScheduledRestaurant(value);
                     if (Platform.isIOS) {

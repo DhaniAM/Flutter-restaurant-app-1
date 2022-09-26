@@ -31,7 +31,7 @@ Future<void> main() async {
   final NotificationHelper _notificationHelper = NotificationHelper();
   final BackgroundService _service = BackgroundService();
 
-  _service.initializeIsolate;
+  _service.initializeIsolate();
 
   if (Platform.isAndroid) {
     await AndroidAlarmManager.initialize();
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
               sharedPreferences: SharedPreferences.getInstance(),
             ),
           ),
-        )
+        ),
       ],
       child: MaterialApp(
         title: "Local Restaurant",
