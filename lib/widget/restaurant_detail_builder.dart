@@ -5,13 +5,12 @@ import 'package:restaurant_app_1/widget/menu_item_name.dart';
 import 'package:restaurant_app_1/widget/my_divider.dart';
 
 class RestaurantDetailBuilder extends StatelessWidget {
-  final RestaurantDetail resData;
-  const RestaurantDetailBuilder({super.key, required this.resData});
+  final Restaurant restaurant;
+  const RestaurantDetailBuilder({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
     const String medImg = "https://restaurant-api.dicoding.dev/images/medium/";
-    final Restaurant restaurant = resData.restaurant;
     final int resFoodsLen = restaurant.menus.foods.length;
     final int resDrinksLen = restaurant.menus.drinks.length;
     final int tagLen = restaurant.categories.length;

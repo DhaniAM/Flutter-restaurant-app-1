@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/provider/home_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
+import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -21,11 +22,11 @@ class HomeScreen extends StatelessWidget {
 
           /// No Data state
         } else if (data.currentState == HomeCurrentState.noData) {
-          return StateMessage(icon: Icons.fastfood, text: data.message);
+          return StateMessageScaffold(icon: Icons.fastfood, text: data.message);
 
           /// Error state
         } else if (data.currentState == HomeCurrentState.error) {
-          return StateMessage(icon: Icons.cancel_rounded, text: data.message);
+          return StateMessageScaffold(icon: Icons.cancel_rounded, text: data.message);
 
           /// hasData state
         } else if (data.currentState == HomeCurrentState.hasData) {
@@ -33,7 +34,7 @@ class HomeScreen extends StatelessWidget {
 
           /// state when the Screen start
         } else {
-          return StateMessage(icon: Icons.fastfood, text: data.message);
+          return StateMessageScaffold(icon: Icons.fastfood, text: data.message);
         }
       },
     );

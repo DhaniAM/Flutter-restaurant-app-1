@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/common/navigation.dart';
 import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/db/database_helper.dart';
+import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/preferences/preferences_helper.dart';
 import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/home_provider.dart';
@@ -85,7 +86,8 @@ class MyApp extends StatelessWidget {
         initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const MainScreen(),
-          RestaurantScreen.routeName: (context) => const RestaurantScreen(),
+          RestaurantScreen.routeName: (context) => RestaurantScreen(
+              restaurant: ModalRoute.of(context)?.settings.arguments as Restaurant),
           SearchScreen.routeName: (context) => const SearchScreen(),
         },
       ),

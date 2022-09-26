@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/provider/search_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
+import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class SearchScreen extends StatelessWidget {
   static const routeName = "/searchScreen";

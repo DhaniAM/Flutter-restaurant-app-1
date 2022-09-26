@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app_1/common/navigation.dart';
-import 'package:restaurant_app_1/data/model/restaurants_model.dart';
+import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:rxdart/subjects.dart';
 
 final selectNotificationSubject = BehaviorSubject<String>();
@@ -41,8 +41,9 @@ class NotificationHelper {
     );
   }
 
+  /// when we click the notification prompt
   Future<void> showNotification(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
-      RestaurantsList restaurantsList) async {
+      Restaurant restaurant) async {
     var channelId = "1";
     var channelName = "channel_01";
     var channelDescription = "Dhani Restaurant App";
@@ -64,19 +65,19 @@ class NotificationHelper {
     var titleNotification = "<b>Trending Restaurant</b>";
 
     /// Restaurants title to show
-    var titleNews = restaurantsList.restaurants[0].name;
+    var titleNews = restaurant.name;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
-        payload: json.encode(restaurantsList.toJson()));
+        payload: json.encode(restaurant.toJson()));
   }
 
   void configureSelectNotificationSubject(String route) {
     selectNotificationSubject.stream.listen(
       (String payload) async {
-        var data = RestaurantsList.fromJson(json.decode(payload));
-        var restaurant = data.restaurants[0];
-        Navigation.intentWithData(route, restaurant);
+        var data = Restaurant.fromJson(json.decode(payload));
+        // var restaurant = data.restaurant;
+        Navigation.intentWithData(route, data);
       },
     );
   }

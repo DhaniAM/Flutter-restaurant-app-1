@@ -1,6 +1,6 @@
 enum HomeCurrentState { loading, noData, hasData, error }
 
-enum RestoDetailState { init, loading, noData, hasData, error }
+enum RestoDetailState { init, loading, noData, hasData, error, hasDataFromNotif }
 
 enum SearchCurrentState { init, loading, noData, hasData, error }
 

@@ -23,8 +23,7 @@ class ApiService {
 
   /// for [SearchProvider] getting Search result
   Future<RestaurantsList> getSearchResults(String searchText) async {
-    final response =
-        await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
+    final response = await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
     if (response.statusCode == 200) {
       return RestaurantsList.fromJson(jsonDecode(response.body));
     } else {
@@ -36,6 +35,7 @@ class ApiService {
   Future<RestaurantDetail> getRestaurantDetail(String id) async {
     final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
     if (response.statusCode == 200) {
+      print('Getting restaurant detail in API......');
       return RestaurantDetail.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed to load restaurant detail -_-");

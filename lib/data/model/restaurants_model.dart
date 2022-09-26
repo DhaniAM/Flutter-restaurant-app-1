@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 /// class for restaurant list in [HomeScreen] and [SearchScreen]

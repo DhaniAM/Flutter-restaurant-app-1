@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'dart:isolate';
 import 'package:restaurant_app_1/main.dart';
@@ -27,8 +28,15 @@ class BackgroundService {
   static Future<void> callback() async {
     print('Alarm fired!');
     final NotificationHelper notificationHelper = NotificationHelper();
-    var result = await ApiService().getRestaurantsList();
-    await notificationHelper.showNotification(flutterLocalNotificationsPlugin, result);
+    var restaurantsList = await ApiService().getRestaurantsList();
+    List restaurantIdList = restaurantsList.restaurants.toList();
+
+    /// get random item
+    var randomIndex = Random().nextInt(restaurantIdList.length);
+    var randomRestaurant = restaurantsList.restaurants[randomIndex].id;
+    var restaurantDetail = await ApiService().getRestaurantDetail(randomRestaurant);
+    var restaurant = restaurantDetail.restaurant;
+    await notificationHelper.showNotification(flutterLocalNotificationsPlugin, restaurant);
 
     _uiSendPort ??= IsolateNameServer.lookupPortByName(_isolateName);
     _uiSendPort?.send(null);

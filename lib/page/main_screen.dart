@@ -76,8 +76,8 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.house),
-            label: 'Home',
+            icon: Icon(Icons.restaurant),
+            label: 'Restaurants',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_sharp),
@@ -85,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Setting',
+            label: 'Settings',
           ),
         ],
       ),

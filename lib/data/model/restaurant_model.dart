@@ -15,6 +15,12 @@ class RestaurantDetail {
         message: json["message"],
         restaurant: Restaurant.fromJson(json["restaurant"]),
       );
+
+  Map<String, dynamic> toJson() => {
+        "error": error,
+        "message": message,
+        "restaurant": restaurant.toJson(),
+      };
 }
 
 /// Has complete detail for restaurant, used in [RestaurantScreen]

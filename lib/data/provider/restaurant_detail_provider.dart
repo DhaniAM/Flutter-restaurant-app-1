@@ -12,7 +12,7 @@ class RestaurantDetailProvider extends ChangeNotifier {
   RestaurantDetailProvider({required this.apiService});
 
   late RestaurantDetail _restaurantDetail;
-  RestoDetailState _currentState = RestoDetailState.loading;
+  RestoDetailState _currentState = RestoDetailState.hasData;
   String _message = "";
 
   /// Getter
@@ -23,22 +23,27 @@ class RestaurantDetailProvider extends ChangeNotifier {
   Future getRestaurantsDetail(String restaurantId) async {
     try {
       _currentState = RestoDetailState.loading;
+      print('RestoDetailState.loading.......');
       notifyListeners();
       final RestaurantDetail restaurant = await apiService.getRestaurantDetail(restaurantId);
 
       if (restaurant.message != "success") {
         _currentState = RestoDetailState.noData;
         notifyListeners();
+        print('RestoDetailState.NoData.......');
         return _message = "No Data, Fetching Data Failed";
       } else {
+        print('RestoDetailState.HasData.......');
         _currentState = RestoDetailState.hasData;
         notifyListeners();
-        return _restaurantDetail = restaurant;
+        _restaurantDetail = restaurant;
+        return _restaurantDetail;
       }
     } catch (e) {
       _currentState = RestoDetailState.error;
+      print('RestoDetailState.Error.......');
       notifyListeners();
-      return _message = "Error loading data";
+      return _message = "Error no internet connection";
     }
   }
 

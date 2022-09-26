@@ -4,6 +4,7 @@ import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/favorite_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
+import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -14,17 +15,19 @@ class FavoriteScreen extends StatelessWidget {
       builder: (context, data, child) {
         /// Loading state
         if (data.currentState == DatabaseState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),
+            ),
           );
 
           /// No Data state
         } else if (data.currentState == DatabaseState.noData) {
-          return StateMessage(icon: Icons.heart_broken, text: data.message);
+          return StateMessageScaffold(icon: Icons.heart_broken, text: data.message);
 
           /// Error state
         } else if (data.currentState == DatabaseState.error) {
-          return StateMessage(icon: Icons.cancel, text: data.message);
+          return StateMessageScaffold(icon: Icons.cancel, text: data.message);
 
           /// has Data state
         } else if (data.currentState == DatabaseState.hasData) {
@@ -32,7 +35,7 @@ class FavoriteScreen extends StatelessWidget {
 
           /// other state
         } else {
-          return StateMessage(icon: Icons.fastfood, text: data.message);
+          return StateMessageScaffold(icon: Icons.fastfood, text: data.message);
         }
       },
     );
