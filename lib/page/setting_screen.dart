@@ -21,11 +21,11 @@ class SettingScreen extends StatelessWidget {
                   value: scheduled.isScheduled,
                   // value: pref.isScheduledRestaurant,
                   onChanged: (value) async {
-                    pref.toggleScheduledRestaurant(value);
                     if (Platform.isIOS) {
                       customDialog(context);
                     } else {
                       scheduled.scheduleRestaurants(value);
+                      pref.toggleScheduledRestaurant(value);
                     }
                   },
                 );

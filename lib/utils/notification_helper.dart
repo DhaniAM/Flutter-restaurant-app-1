@@ -47,18 +47,21 @@ class NotificationHelper {
     var channelName = "channel_01";
     var channelDescription = "Dhani Restaurant App";
 
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(channelId, channelName,
-        channelDescription: channelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker',
-        styleInformation: const DefaultStyleInformation(true, true));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      channelDescription: channelDescription,
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+      styleInformation: const DefaultStyleInformation(true, true),
+    );
 
     var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
 
-    var titleNotification = "<b>Headline News</b>";
+    var titleNotification = "<b>Trending Restaurant</b>";
 
     /// Restaurants title to show
     var titleNews = restaurantsList.restaurants[0].name;
