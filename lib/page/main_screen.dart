@@ -7,7 +7,7 @@ import 'package:restaurant_app_1/page/setting_screen.dart';
 import 'package:restaurant_app_1/utils/notification_helper.dart';
 
 class MainScreen extends StatefulWidget {
-  static const String routeName = '/';
+  static const String routeName = '/homeScreen';
   const MainScreen({Key? key}) : super(key: key);
 
   @override
@@ -18,26 +18,26 @@ class _MainScreenState extends State<MainScreen> {
   final NotificationHelper _notificationHelper = NotificationHelper();
   int _currentTabIndex = 0;
 
+  List<Widget> widgetToBuild = <Widget>[
+    const HomeScreen(),
+    const FavoriteScreen(),
+    const SettingScreen(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationHelper.configureSelectNotificationSubject(RestaurantScreen.routeName);
+  }
+
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-      _notificationHelper.configureSelectNotificationSubject(RestaurantScreen.routeName);
-    }
-
-    @override
-    void dispose() {
-      selectNotificationSubject.close();
-      super.dispose();
-    }
-
-    List<Widget> widgetToBuild = <Widget>[
-      const HomeScreen(),
-      const FavoriteScreen(),
-      const SettingScreen(),
-    ];
-
     /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
     /// can use the state
     return Scaffold(
