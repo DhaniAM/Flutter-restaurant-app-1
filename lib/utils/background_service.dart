@@ -28,6 +28,8 @@ class BackgroundService {
   static Future<void> callback() async {
     print('Alarm fired!');
     final NotificationHelper notificationHelper = NotificationHelper();
+
+    /// get restaurants list
     var restaurantsList = await ApiService().getRestaurantsList();
     List restaurantIdList = restaurantsList.restaurants.toList();
 
@@ -35,7 +37,12 @@ class BackgroundService {
     var randomIndex = Random().nextInt(restaurantIdList.length);
     var randomRestaurant = restaurantsList.restaurants[randomIndex].id;
     var restaurantDetail = await ApiService().getRestaurantDetail(randomRestaurant);
+
+    /// get the restaurant
+    /// so restaurant object here is already created, no need to make new one
     var restaurant = restaurantDetail.restaurant;
+
+    /// show notification and pass the restaurant to notification
     await notificationHelper.showNotification(flutterLocalNotificationsPlugin, restaurant);
 
     _uiSendPort ??= IsolateNameServer.lookupPortByName(_isolateName);

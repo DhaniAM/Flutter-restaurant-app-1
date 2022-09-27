@@ -4,7 +4,6 @@ import 'package:restaurant_app_1/data/provider/search_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/restaurants_list_builder.dart';
 import 'package:restaurant_app_1/widget/state_message.dart';
-import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class SearchScreen extends StatelessWidget {
   static const routeName = "/searchScreen";
@@ -68,7 +67,7 @@ class SearchScreen extends StatelessWidget {
                         /// Close keyboard
                         FocusManager.instance.primaryFocus?.unfocus();
 
-                        /// get Data
+                        /// get search Data
                         if (data.controller.text != "") {
                           data.getSearchResult(data.controller.text);
                         }
@@ -82,7 +81,7 @@ class SearchScreen extends StatelessWidget {
       /// Search Result
       body: Consumer<SearchProvider>(
         builder: (context, SearchProvider data, child) {
-          /// Init state
+          /// Loading state
           if (data.currentState == SearchCurrentState.loading) {
             return const Center(
               child: CircularProgressIndicator(color: Color.fromRGBO(255, 106, 106, 1)),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:restaurant_app_1/data/preferences/preferences_helper.dart';
 
+/// ALl Provider can only be accessed from Consumer or Provider.of inside ChangeNotifierProvider
 class PreferencesProvider extends ChangeNotifier {
   PreferencesHelper preferencesHelper;
   PreferencesProvider({required this.preferencesHelper}) {

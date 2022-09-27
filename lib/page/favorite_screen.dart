@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/favorite_list_builder.dart';
-import 'package:restaurant_app_1/widget/state_message.dart';
 import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -33,7 +32,7 @@ class FavoriteScreen extends StatelessWidget {
         } else if (data.currentState == DatabaseState.hasData) {
           return FavoriteListBuilder(restaurantsList: data.bookmarks);
 
-          /// other state
+          /// others
         } else {
           return StateMessageScaffold(icon: Icons.fastfood, text: data.message);
         }

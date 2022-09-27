@@ -38,8 +38,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    /// [ChangeNotifierProvider] is used so we can use the [Consumer] so we
-    /// can use the state
     return Scaffold(
       appBar: AppBar(
         title: (_currentTabIndex == 0)
@@ -64,8 +62,10 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
 
-      /// Each Restaurant List
+      /// content to show
       body: widgetToBuild[_currentTabIndex],
+
+      /// Bot nav bar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentTabIndex,

@@ -7,9 +7,8 @@ import 'package:restaurant_app_1/data/provider/database_provider.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/page/restaurant_screen.dart';
 
-/// Each Restaurant in [HomeScreen] and [SearchScreen]
+/// Each Restaurant in [HomeScreen], [SearchScreen], [FavoriteScreen]
 class RestaurantCard extends StatelessWidget {
-  /// for getting each [Restaurant], not for passing to [RestaurantScreen]
   final Restaurants restaurants;
   const RestaurantCard({Key? key, required this.restaurants}) : super(key: key);
 
@@ -17,17 +16,14 @@ class RestaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     const String smallImg = "https://restaurant-api.dicoding.dev/images/small/";
 
-    /// Each Restaurant List
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16, bottom: 4),
-
-      /// Routing
-      /// pass Restaurant Id instead of index to get
-      /// the [RestaurantDetail] on [RestaurantScreen]
       child: Consumer<RestaurantDetailProvider>(
         builder: (context, value, child) {
           return GestureDetector(
             onTap: () async {
+              /// get the current restaurant detail value that is pressed
+              /// and pass to navigation
               await value.getRestaurantsDetail(restaurants.id);
               final Restaurant restaurant = value.restaurantDetail.restaurant;
               Navigation.intentWithData(RestaurantScreen.routeName, restaurant);
@@ -48,7 +44,7 @@ class RestaurantCard extends StatelessWidget {
                 ],
               ),
 
-              /// Card itself
+              /// Card content
               child: ListTile(
                 /// Restaurant Image
                 leading: ClipRRect(
@@ -105,14 +101,6 @@ class RestaurantCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Icon(
-                          Icons.star_rounded,
-                          color: Colors.yellow,
-                        ),
-                        Text(
-                          restaurants.rating.toString(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
                         Consumer<DatabaseProvider>(
                           builder: (context, value, child) {
                             return FutureBuilder(
@@ -121,7 +109,7 @@ class RestaurantCard extends StatelessWidget {
                                 bool isBookmarked = snapshot.data ?? false;
                                 if (isBookmarked) {
                                   return const Padding(
-                                    padding: EdgeInsets.only(left: 5.0),
+                                    padding: EdgeInsets.only(right: 5.0),
                                     child: Icon(
                                       Icons.favorite,
                                       color: Colors.pink,
@@ -133,6 +121,14 @@ class RestaurantCard extends StatelessWidget {
                               },
                             );
                           },
+                        ),
+                        const Icon(
+                          Icons.star_rounded,
+                          color: Colors.yellow,
+                        ),
+                        Text(
+                          restaurants.rating.toString(),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ],
                     ),

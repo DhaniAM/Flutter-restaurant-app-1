@@ -22,9 +22,11 @@ class SettingScreen extends StatelessWidget {
                   value: pref.isScheduledRestaurant,
                   onChanged: (value) async {
                     if (Platform.isAndroid) {
+                      /// set Scheduled and SharedPreferences value on or off
                       scheduled.scheduleRestaurants(value);
                       pref.toggleScheduledRestaurant(value);
                     } else {
+                      /// on Ios show error
                       customDialog(context);
                     }
                   },

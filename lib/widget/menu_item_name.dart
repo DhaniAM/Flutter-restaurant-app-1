@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// each foods and drinks item
 class MenuItemName extends StatelessWidget {
   final String itemName;
   const MenuItemName({Key? key, required this.itemName}) : super(key: key);

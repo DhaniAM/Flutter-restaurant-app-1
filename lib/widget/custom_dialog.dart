@@ -24,6 +24,8 @@ customDialog(BuildContext context) {
         );
       },
     );
+
+    /// Android
   } else {
     showDialog(
       context: context,

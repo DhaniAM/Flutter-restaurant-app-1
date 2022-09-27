@@ -42,6 +42,7 @@ class NotificationHelper {
   }
 
   /// when we click the notification prompt
+  /// restaurant value is from the backround service
   Future<void> showNotification(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       Restaurant restaurant) async {
     var channelId = "1";
@@ -65,18 +66,22 @@ class NotificationHelper {
     var titleNotification = "<b>Trending Restaurant</b>";
 
     /// Restaurants title to show
-    var titleNews = restaurant.name;
+    var titleRestaurant = restaurant.name;
 
     await flutterLocalNotificationsPlugin.show(
-        0, titleNotification, titleNews, platformChannelSpecifics,
+        0, titleNotification, titleRestaurant, platformChannelSpecifics,
+
+        /// pass the restaurant value to configureSelectNotificationSubject via payload
         payload: json.encode(restaurant.toJson()));
   }
 
+  /// get the Restaurant data
   void configureSelectNotificationSubject(String route) {
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = Restaurant.fromJson(json.decode(payload));
-        // var restaurant = data.restaurant;
+
+        /// pass the Restaurant data to search screen, no need to make new object
         Navigation.intentWithData(route, data);
       },
     );

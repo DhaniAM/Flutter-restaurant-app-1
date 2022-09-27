@@ -35,7 +35,6 @@ class FavoriteIcon extends StatelessWidget {
                           name: restaurant.name,
                           pictureId: restaurant.pictureId,
                           rating: restaurant.rating);
-
                       provider.addBookmark(restaurants);
                     },
                     icon: const Icon(
@@ -45,29 +44,6 @@ class FavoriteIcon extends StatelessWidget {
                   );
           },
         );
-
-        /// if Loading
-        // if (data.isBookmarked(resId) == true) {
-        //   return IconButton(
-        //     onPressed: () {
-        //       data.toggleFavPref();
-        //     },
-        //     icon: const Icon(
-        //       Icons.favorite_border,
-        //       color: Colors.grey,
-        //     ),
-        //   );
-        // } else {
-        //   return IconButton(
-        //     onPressed: () {
-        //       data.toggleFavPref();
-        //     },
-        //     icon: const Icon(
-        //       Icons.favorite,
-        //       color: Colors.pink,
-        //     ),
-        //   );
-        // }
       },
     );
   }

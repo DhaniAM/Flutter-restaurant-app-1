@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-/// class for restaurant list in [HomeScreen] and [SearchScreen]
+/// class for restaurant list to show in [restaurant_card]
 RestaurantsList restaurantsDataFromJson(String str) => RestaurantsList.fromJson(json.decode(str));
 String restaurantsListToJson(RestaurantsList data) => json.encode(data.toJson());
 
@@ -46,7 +46,7 @@ class RestaurantsList {
       };
 }
 
-/// Overview of Restaurants detail, not so complete compared to [Restaurant] class
+/// Overview of Restaurants detail, use for [restaurant_card], not for restaurant detail screen
 class Restaurants {
   Restaurants({
     required this.id,

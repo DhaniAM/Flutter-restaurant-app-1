@@ -3,6 +3,7 @@ import 'package:restaurant_app_1/data/db/database_helper.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 
+/// ALl Provider can only be accessed from Consumer or Provider.of inside ChangeNotifierProvider
 class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
 
@@ -18,7 +19,7 @@ class DatabaseProvider extends ChangeNotifier {
   String get message => _message;
   List<Restaurants> get bookmarks => _bookmarks;
 
-  /// get bookmark
+  /// get bookmark, called by constructor
   void _getBookmarks() async {
     _currentState = DatabaseState.loading;
     notifyListeners();

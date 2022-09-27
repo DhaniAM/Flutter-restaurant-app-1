@@ -32,6 +32,8 @@ class RestaurantDetailBuilder extends StatelessWidget {
                 /// While still loading
                 return const Center(child: CircularProgressIndicator());
               },
+
+              /// When error
               errorBuilder: (context, error, stackTrace) {
                 return const SizedBox(
                   height: 200,
@@ -47,7 +49,7 @@ class RestaurantDetailBuilder extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 //
-                /// Title Content
+                /// Top Content
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

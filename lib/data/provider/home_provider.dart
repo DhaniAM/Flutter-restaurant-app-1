@@ -3,7 +3,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 
-/// can only be used from Consumer or Provider.of
+/// ALl Provider can only be accessed from Consumer or Provider.of inside ChangeNotifierProvider
 class HomeProvider extends ChangeNotifier {
   final ApiService apiService;
   HomeProvider({required this.apiService}) {
@@ -27,8 +27,8 @@ class HomeProvider extends ChangeNotifier {
       /// tell that current state is Loading
       _currentState = HomeCurrentState.loading;
 
-      /// Tell all widget that it's still loading, so that the widget
-      /// will show Loading indicator
+      /// Tell all widget _currentState value has changed, so widgets will
+      /// change based on this _currentState value
       notifyListeners();
 
       /// get the API data
@@ -36,11 +36,9 @@ class HomeProvider extends ChangeNotifier {
 
       /// if there is NO DATA or if the API can't get the Data
       if (restaurantsList.restaurants.isEmpty) {
-        _currentState = HomeCurrentState.noData;
-
         /// Tell all widget that there's no data
+        _currentState = HomeCurrentState.noData;
         notifyListeners();
-
         return _message = "No Data";
       } else {
         /// else if there is data
@@ -50,6 +48,7 @@ class HomeProvider extends ChangeNotifier {
         return _restaurantsList = restaurantsList;
       }
     } catch (e) {
+      /// if no internet
       _currentState = HomeCurrentState.error;
       notifyListeners();
       return _message = "Error no internet connection";

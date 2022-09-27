@@ -3,7 +3,7 @@ import 'package:restaurant_app_1/data/api/api_service.dart';
 import 'package:restaurant_app_1/data/model/restaurants_model.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 
-/// can only be used from Consumer or Provider.of
+/// ALl Provider can only be accessed from Consumer or Provider.of inside ChangeNotifierProvider
 class SearchProvider extends ChangeNotifier {
   ApiService apiService;
   SearchProvider({required this.apiService});

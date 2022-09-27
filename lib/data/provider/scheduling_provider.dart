@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:restaurant_app_1/utils/background_service.dart';
 import 'package:restaurant_app_1/utils/date_time_helper.dart';
 
+/// ALl Provider can only be accessed from Consumer or Provider.of inside ChangeNotifierProvider
 class SchedulingProvider extends ChangeNotifier {
   bool _isScheduled = false;
 

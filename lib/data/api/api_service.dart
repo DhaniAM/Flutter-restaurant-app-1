@@ -21,7 +21,7 @@ class ApiService {
     }
   }
 
-  /// for [SearchProvider] getting Search result
+  /// for [SearchProvider] getting Search result in Search Screen
   Future<RestaurantsList> getSearchResults(String searchText) async {
     final response = await http.get(Uri.parse(_baseUrl + _searchQuery + searchText));
     if (response.statusCode == 200) {
@@ -31,7 +31,7 @@ class ApiService {
     }
   }
 
-  /// for [RestaurantDetailProvider]
+  /// for [RestaurantDetailProvider] getting resturant detail in Restaurant Detail Screen
   Future<RestaurantDetail> getRestaurantDetail(String id) async {
     final response = await http.get(Uri.parse(_baseUrl + _detailQuery + id));
     if (response.statusCode == 200) {

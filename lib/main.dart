@@ -48,6 +48,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// [ChangeNotifierProvider] is used so we can use the [Consumer]
+    /// so we can use the state
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeProvider>(
