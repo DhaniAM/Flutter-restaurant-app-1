@@ -4,7 +4,6 @@ import 'package:restaurant_app_1/data/model/restaurant_model.dart';
 import 'package:restaurant_app_1/data/provider/restaurant_detail_provider.dart';
 import 'package:restaurant_app_1/data/state/current_state.dart';
 import 'package:restaurant_app_1/widget/restaurant_detail_builder.dart';
-import 'package:restaurant_app_1/widget/state_message.dart';
 import 'package:restaurant_app_1/widget/state_message_scaffold.dart';
 
 class RestaurantScreen extends StatelessWidget {

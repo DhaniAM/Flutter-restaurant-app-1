@@ -29,16 +29,16 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final NotificationHelper _notificationHelper = NotificationHelper();
-  final BackgroundService _service = BackgroundService();
+  final NotificationHelper notificationHelper = NotificationHelper();
+  final BackgroundService service = BackgroundService();
 
-  _service.initializeIsolate();
+  service.initializeIsolate();
 
   if (Platform.isAndroid) {
     await AndroidAlarmManager.initialize();
   }
 
-  await _notificationHelper.initNotification(flutterLocalNotificationsPlugin);
+  await notificationHelper.initNotification(flutterLocalNotificationsPlugin);
 
   runApp(const MyApp());
 }
