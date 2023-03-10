@@ -40,11 +40,11 @@ Future<void> main() async {
 
   await notificationHelper.initNotification(flutterLocalNotificationsPlugin);
 
-  runApp(const MyApp());
+  runApp(const RestaurantApp1());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class RestaurantApp1 extends StatelessWidget {
+  const RestaurantApp1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +56,19 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeProvider(apiService: ApiService()),
         ),
         ChangeNotifierProvider<DatabaseProvider>(
-          create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+          create: (context) =>
+              DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
         ChangeNotifierProvider<SearchProvider>(
           create: (context) => SearchProvider(apiService: ApiService()),
         ),
         ChangeNotifierProvider<RestaurantDetailProvider>(
-          create: (context) => RestaurantDetailProvider(apiService: ApiService()),
+          create: (context) =>
+              RestaurantDetailProvider(apiService: ApiService()),
         ),
         ChangeNotifierProvider<DatabaseProvider>(
-          create: (context) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+          create: (context) =>
+              DatabaseProvider(databaseHelper: DatabaseHelper()),
         ),
         ChangeNotifierProvider<SchedulingProvider>(
           create: (context) => SchedulingProvider(),
@@ -89,7 +92,8 @@ class MyApp extends StatelessWidget {
         routes: {
           HomeScreen.routeName: (context) => const MainScreen(),
           RestaurantScreen.routeName: (context) => RestaurantScreen(
-              restaurant: ModalRoute.of(context)?.settings.arguments as Restaurant),
+              restaurant:
+                  ModalRoute.of(context)?.settings.arguments as Restaurant),
           SearchScreen.routeName: (context) => const SearchScreen(),
         },
       ),
